@@ -6,7 +6,7 @@
 - Mo Khairullah (Developer)
 
 ## Mission Statement
-
+- Our mission is to make digital education resources more accesible and usable for elementary school students living in remote or rural areas.
 
 ## Team Skills & Competencies
   
