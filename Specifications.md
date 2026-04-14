@@ -30,6 +30,11 @@ Although solutions exist, they do not fully address the problem. Parental contro
 
 ## Solution Summary
 
+<<<<<<< HEAD
+=======
+Our platform helps parents manage their young children's screen time by giving them a clear picture of daily usage and offering real-time suggestions for activities to do instead. Rather than just blocking or restricting screens, the app encourages families to replace that time with indoor, outdoor, or bonding activities that fit the child's age and interests. Parents can build a daily schedule around these activities, and children earn reward points for staying within the recommended limits. By making it easier to plan alternatives and track progress, the app supports healthier habits without making screen time management feel like a punishment.
+
+>>>>>>> origin
 ## Design
 
 ### Global Elements
