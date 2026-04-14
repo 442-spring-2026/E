@@ -30,7 +30,6 @@ Although solutions exist, they do not fully address the problem. Parental contro
 
 ## Solution Summary
 
-
 ## Design
 
 ### Global Elements
