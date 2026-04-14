@@ -78,6 +78,13 @@ When the page load, the following elements are displayed:
 - Remaining allowed screen time (e.g. “1.5 hours left today”)
 - Reward points (e.g. “120 pts”)
 
+Screen time is calculated by summing all usage sessions recorded during the day.
+
+Reward points are updated in real time based on:
+
+- staying within daily screen time limit
+- completing activities in the Daily Plan
+
 If the screen time exceeds the recommended limit, a warning message is displayed:
 
 - “Screen time exceeded recommended limit”
