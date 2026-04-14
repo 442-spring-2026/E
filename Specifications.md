@@ -33,4 +33,143 @@ Although solutions exist, they do not fully address the problem. Parental contro
 
 ## Design
 
-#### includes different pages and it should include every screen, every error, every algorithmic functionality, and every detail about the textual and visual content of your design. Each page has at least one wireframe.
+### Global Elements
+
+Every page consists of:
+
+- Navigation bar
+- Body
+- Footer
+
+The navigation bar contains:
+
+- Website name (””)
+- Links: Home, Dashboard, Activities, Daily Plan, Profile
+
+The footer contains:
+
+- Brief description of the platform
+- Contact information
+
+---
+
+### Home Page
+
+The Home page introduces the product and guides users to begin.
+
+When the page loads, the following elements are displayed:
+
+- Title: “”
+- Short description and guidance of the platform
+- “Get Started” button
+
+On click of the “Get started” button, the user is redirected to the Dashboard page.
+
+---
+
+### Dashboard Page
+
+The Dashboard page provides an overview of the child’s screen time and progress.
+
+When the page load, the following elements are displayed:
+
+- Daily screen time (e.g. “3.5 hours”)
+- Weekly trend chart
+- Remaining allowed screen time (e.g. “1.5 hours left today”)
+- Reward points (e.g. “120 pts”)
+
+If the screen time exceeds the recommended limit, a warning message is displayed:
+
+- “Screen time exceeded recommended limit”
+
+If the screen time is within the limit, a positive message is displayed:
+
+- “Great job staying within the limit!”
+
+A button labeled “View Suggestions” is displayed.
+
+On click of the “View Suggestions” button, the user is redirected to the Activity Suggestion Page.
+
+If no screen time data has been entered, an error message is displayed:
+
+- “Please enter screen time data”
+
+---
+
+### Activity Suggestions Page
+
+The Activity Suggestions page provides alternative activities to replace screen time. 
+
+When the page loads, a list of activities is displayed. Each activity includes:
+
+- Activity name
+- Short description
+- Estimated duration
+
+Activities are categorized into:
+
+- Indoor activities
+- Outdoor activities
+- Family bonding activities
+
+Users can filter activities by:
+
+- Child’s age
+- Available time
+- Activity type
+
+On click of an activity:
+
+- The activity is added to the Daily Plan
+- A confirmation message is displayed
+
+If no activities match the selected filters, an error message is displayed:
+
+- “No activities found. Try adjusting filters.”
+
+---
+
+### Daily Plan Page
+
+The Daily Plan Page helps users organize activities throughout the day.
+
+When the page loads, a timeline of the day is displayed.
+
+Users are able to:
+
+- Add activities to specific time slots
+- Remove activities
+- Reorder activities
+- Add reminders
+
+On drag-and-drop of an activity, the schedule updates accordingly.
+
+The remaining allowed screen time is also displayed on the side.
+
+---
+
+### Profile Page
+
+The Profile Page stores user information and preferences.
+
+When the page loads, the following fields are displayed:
+
+- Child’s age
+- Screen time limit
+- Interests
+
+Users can update these fields.
+
+On save, the system updates future activity recommendations.
+
+If invalid input is entered, an error message is displayed:
+
+- “Please enter valid information”
+
+---
+
+### Stretch Goals
+
+- Personalized activity recommendations
+- Family shared accounts and group challenges
+- Simple reward / points system
