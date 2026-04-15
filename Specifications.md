@@ -44,7 +44,7 @@ Every page consists of:
 
 The navigation bar contains:
 
-- Website name (””)
+- Website name (”ScreenSmart”)
 - Links: Home, Dashboard, Activities, Daily Plan, Profile
 
 The footer contains:
@@ -60,7 +60,7 @@ The Home page introduces the product and guides users to begin.
 
 When the page loads, the following elements are displayed:
 
-- Title: “”
+- Title: “ScreenSmart”
 - Short description and guidance of the platform
 - “Get Started” button
 
