@@ -44,7 +44,7 @@ Every page consists of:
 
 The navigation bar contains:
 
-- Website name (”ScreenSmart”)
+- Website name (”Nestly”)
 - Links: Home, Dashboard, Activities, Daily Plan, Profile
 - If the user is logged in: show Dashboard, Activities, Daily Plan, Profile, Logout
 - If the user is not logged in: show Home, Login
@@ -109,7 +109,7 @@ The Home page introduces the product and guides users to begin.
 
 When the page loads, the following elements are displayed:
 
-- Title: “ScreenSmart”
+- Title: “Nestly”
 - Short description and guidance of the platform
 - “Get Started” button
 
