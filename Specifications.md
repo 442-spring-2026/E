@@ -84,7 +84,7 @@ If the user is not logged in:
 
 The Setup page is displayed only for first-time users after login.
 
-The page contains a form with the following fields"
+The page contains a form with the following fields:
 
 - Child's age
 - Screen time limit
@@ -137,6 +137,7 @@ When the page load, the following elements are displayed:
 - Reward points (e.g. “120 pts”)
 
 Screen time is calculated by summing all usage sessions recorded during the day.
+
 User Input:
 - Input field to manually enter screen time (hours + minutes)
 - “Add Session” button
@@ -195,7 +196,7 @@ Filters are implemented as dropdown selection menus.
 On click of an activity:
 
 - A time selection interface is displayed
-- The user selects a time slot
+- The user selects a time slot (e.g. 3:00 PM)
 - The activity is added to the selected time slot in the Daily Plan
 - A confirmation message is displayed
 
@@ -224,13 +225,19 @@ Users can mark activities as completed.
 
 Completed activities contribute to reward points.
 
+If no activities have been added, a message is diaplayed:
+
+- "No activities in your daily plan"
+
 The remaining allowed screen time is also displayed on the side.
 
 ---
 
 ### Profile Page
 
-The Profile Page stores user information and preferences. It uses the same fields as the Onboarding Page, allowing users to update previously entered information.
+The Profile Page stores user information and preferences. 
+
+It uses the same fields as the Onboarding Page, allowing users to update previously entered information.
 
 When the page loads, the following fields are displayed:
 
