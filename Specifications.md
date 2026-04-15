@@ -76,10 +76,10 @@ When the page load, the following elements are displayed:
 
 - Daily screen time (e.g. “3.5 hours”)
 - Weekly trend chart
- - Line chart displaying last 7 days
- - X-axis: days (Mon–Sun)
- - Y-axis: screen time in hours
- - If no data -> display: “No data available yet”
+   - Line chart displaying last 7 days
+   - X-axis: days (Mon–Sun)
+   - Y-axis: screen time in hours
+   - If no data -> display: “No data available yet”
 - Remaining allowed screen time (e.g. “1.5 hours left today”)
 - Reward points (e.g. “120 pts”)
 
