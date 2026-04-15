@@ -46,11 +46,60 @@ The navigation bar contains:
 
 - Website name (”ScreenSmart”)
 - Links: Home, Dashboard, Activities, Daily Plan, Profile
+- If the user is logged in: show Dashboard, Activities, Daily Plan, Profile, Logout
+- If the user is not logged in: show Home, Login
 
 The footer contains:
 
 - Brief description of the platform
 - Contact information
+
+---
+
+### Authentication Page
+The Authentication page allows users to log in or sign up
+
+When the page loads:
+
+- Login form (email + password)
+- "Login" button
+- "Sign up" button
+
+If login is successful:
+
+- User is redirected to the Dashboard
+
+If login fails:
+
+- Error message is displayed: "Invalid email or password"
+
+If the user is not logged in:
+
+- The user can only access the Home page
+- Other pages are restricted
+ 
+---
+
+### Onboarding Page
+
+The Setup page is displayed only for first-time users after login.
+
+The page contains a form with the following fields"
+
+- Child's age
+- Screen time limit
+- Interests
+
+These fields are the same as those used in the Profile page.
+
+On submit:
+
+- The information is saved
+- The user is redirected to the Dashboard page
+
+If fields are incomplete
+
+- Error message: "Please complete all required fields"
 
 ---
 
@@ -64,7 +113,11 @@ When the page loads, the following elements are displayed:
 - Short description and guidance of the platform
 - “Get Started” button
 
-On click of the “Get started” button, the user is redirected to the Dashboard page.
+On click of the “Get started” button:
+
+- If not logged in -> redirect to Authentication page
+- If already logged in but not set up -> redirect to Onboarding page
+- If already set up -> redirect to Dashboard
 
 ---
 
@@ -117,7 +170,9 @@ If no screen time data has been entered, an error message is displayed:
 
 The Activity Suggestions page provides alternative activities to replace screen time. 
 
-When the page loads, a list of activities is displayed. Each activity includes:
+When the page loads, a list of activities is displayed. Activities are pre-defined and stored in the system. 
+
+Each activity includes:
 
 - Activity name
 - Short description
@@ -135,9 +190,13 @@ Users can filter activities by:
 - Available time
 - Activity type
 
+Filters are implemented as dropdown selection menus.
+
 On click of an activity:
 
-- The activity is added to the Daily Plan
+- A time selection interface is displayed
+- The user selects a time slot
+- The activity is added to the selected time slot in the Daily Plan
 - A confirmation message is displayed
 
 If no activities match the selected filters, an error message is displayed:
@@ -161,13 +220,17 @@ Users are able to:
 
 On drag-and-drop of an activity, the schedule updates accordingly.
 
+Users can mark activities as completed.
+
+Completed activities contribute to reward points.
+
 The remaining allowed screen time is also displayed on the side.
 
 ---
 
 ### Profile Page
 
-The Profile Page stores user information and preferences.
+The Profile Page stores user information and preferences. It uses the same fields as the Onboarding Page, allowing users to update previously entered information.
 
 When the page loads, the following fields are displayed:
 
