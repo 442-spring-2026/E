@@ -76,10 +76,17 @@ When the page load, the following elements are displayed:
 
 - Daily screen time (e.g. “3.5 hours”)
 - Weekly trend chart
+    Line chart displaying last 7 days
+    X-axis: days (Mon–Sun)
+    Y-axis: screen time in hours
+    If no data -> display: “No data available yet”
 - Remaining allowed screen time (e.g. “1.5 hours left today”)
 - Reward points (e.g. “120 pts”)
 
 Screen time is calculated by summing all usage sessions recorded during the day.
+User Input:
+- Input field to manually enter screen time (hours + minutes)
+- “Add Session” button
 
 Reward points are updated in real time based on:
 
@@ -175,6 +182,41 @@ If invalid input is entered, an error message is displayed:
 - “Please enter valid information”
 
 ---
+
+## Additional Error States
+
+- No activities selected:
+  -> “No activities in your daily plan”
+
+- Overlapping activities:
+  -> “This time slot is already occupied”
+
+- Drag-and-drop failure:
+  -> “Unable to move activity. Try again”
+
+- Invalid screen time input:
+  -> “Enter a valid number of hours”
+
+- Empty activity list:
+  -> “No activities available”
+
+## System Logic
+
+Screen Time Calculation:
+Total screen time = sum of all user-entered sessions
+
+Remaining Time:
+Remaining = daily limit - total screen time
+
+Reward Points:
+- +10 if within limit
+- +5 per completed activity
+- -5 if over limit
+
+Activity Filtering:
+- Match age range
+- Match duration ≤ available time
+- Match category filter
 
 ### Stretch Goals
 
