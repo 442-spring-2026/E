@@ -93,6 +93,8 @@ Reward points are updated in real time based on:
 - staying within daily screen time limit
 - completing activities in the Daily Plan
 
+The reward system encourages positive reinforcement rather than punishment, helping motivate children to build healthier habits.
+
 If the screen time exceeds the recommended limit, a warning message is displayed:
 
 - “Screen time exceeded recommended limit”
