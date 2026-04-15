@@ -56,6 +56,28 @@ The footer contains:
 
 ---
 
+### Home Page
+
+The Home page introduces the product and guides users to begin.
+
+When the page loads, the following elements are displayed:
+
+- Title: “Nestly”
+- Short description and guidance of the platform
+- “Get Started” button
+
+On click of the “Get started” button:
+
+- If not logged in -> redirect to Authentication page
+- If already logged in but not set up -> redirect to Onboarding page
+- If already set up -> redirect to Dashboard
+
+![Home](Home.png)
+
+Figure 1: Home Page
+
+---
+
 ### Authentication Page
 The Authentication page allows users to log in or sign up
 
@@ -77,7 +99,11 @@ If the user is not logged in:
 
 - The user can only access the Home page
 - Other pages are restricted
- 
+
+![Authentication](Authentication.png)
+
+Figure 2: Authentication Page
+
 ---
 
 ### Onboarding Page
@@ -101,23 +127,9 @@ If fields are incomplete
 
 - Error message: "Please complete all required fields"
 
----
+![Onboarding](Onboarding.png)
 
-### Home Page
-
-The Home page introduces the product and guides users to begin.
-
-When the page loads, the following elements are displayed:
-
-- Title: “Nestly”
-- Short description and guidance of the platform
-- “Get Started” button
-
-On click of the “Get started” button:
-
-- If not logged in -> redirect to Authentication page
-- If already logged in but not set up -> redirect to Onboarding page
-- If already set up -> redirect to Dashboard
+Figure 3: Onboarding Page
 
 ---
 
@@ -165,6 +177,10 @@ If no screen time data has been entered, an error message is displayed:
 
 - “Please enter screen time data”
 
+![Dashboard](Dashboard.png)
+
+Figure 4: Dashboard Page
+
 ---
 
 ### Activity Suggestions Page
@@ -204,6 +220,10 @@ If no activities match the selected filters, an error message is displayed:
 
 - “No activities found. Try adjusting filters.”
 
+![Activities](Activities.png)
+
+Figure 5: Activity Suggestions Page
+
 ---
 
 ### Daily Plan Page
@@ -231,6 +251,10 @@ If no activities have been added, a message is diaplayed:
 
 The remaining allowed screen time is also displayed on the side.
 
+![Daily Plan](DailyPlan.png)
+
+Figure 6: Daily Plan Page
+
 ---
 
 ### Profile Page
@@ -252,6 +276,10 @@ On save, the system updates future activity recommendations.
 If invalid input is entered, an error message is displayed:
 
 - “Please enter valid information”
+
+![Profile](Profile.png)
+
+Figure 7: Profile Page
 
 ---
 
