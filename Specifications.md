@@ -86,9 +86,9 @@ The Setup page is displayed only for first-time users after login.
 
 The page contains a form with the following fields:
 
-- Child's age
-- Screen time limit
-- Interests
+- Child's age: dropdown selection (e.g. 6-8, 9-12)
+- Screen time limit: dropdown selection (e.g. 1 hour, 2 hours)
+- Interests: text input field (free-form)
 
 These fields are the same as those used in the Profile page.
 
