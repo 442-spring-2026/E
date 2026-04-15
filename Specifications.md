@@ -200,6 +200,8 @@ If invalid input is entered, an error message is displayed:
 - Empty activity list:
   -> “No activities available”
 
+---
+
 ## System Logic
 
 Screen Time Calculation:
@@ -217,6 +219,8 @@ Activity Filtering:
 - Match age range
 - Match duration ≤ available time
 - Match category filter
+
+---
 
 ### Stretch Goals
 
