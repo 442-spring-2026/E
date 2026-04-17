@@ -69,10 +69,10 @@ S19. A confirmation message is displayed.
 
 ## Nonfunctional Requirements
 
-### Security
+#### Security
 On the Authentication page:  
 NF1. The password input field masks characters as the user types.
 
-### Usability
+#### Usability
 On the Activity Suggestions page:  
 NF2. Filter dropdown menus remain usable on both desktop and mobile screen sizes.
