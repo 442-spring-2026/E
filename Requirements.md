@@ -1,7 +1,6 @@
 # Requirements
 
 ## Global Elements
-### Navigation
 
 ## Home Page
 
