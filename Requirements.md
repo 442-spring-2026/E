@@ -47,11 +47,17 @@ When the Authentication page loads:
 A1. An email input field is displayed.  
 A2. A password input field is displayed.  
 
-When the user submits the login form with the email field empty:  
-A3. The login is not submitted.  
+When the user submits the login form with a registered email and correct password:  
+A3. The user is redirected to the Dashboard page.  
+
+When the user submits the login form with an unrecognized email or incorrect password:  
+A4. The user remains on the Authentication page.  
+
+When the user submits the login form with the password field empty:  
+A5. The login is not submitted.  
 
 When the user selects "Sign Up":  
-A4. The user is redirected to the Onboarding page.  
+A6. The user is redirected to the Onboarding page.  
 
 ## Onboarding Page
 
