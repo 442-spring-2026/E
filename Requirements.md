@@ -43,26 +43,11 @@ H6. If the user has completed onboarding, the Dashboard page is opened.
 
 ## Authentication Page
 
-When the Authentication page loads:
-A1. An email input field is displayed.
-A2. A password input field is displayed.
-A3. A "Sign Up" button is displayed.
+When the user authenticates successfully:  
+A1. The user is redirected to the Dashboard page.  
 
-When the user submits the login form and authentication succeeds:
-A4. The user is redirected to the Dashboard page.
-
-When the user submits the login form and authentication fails:
-A5. An error message is displayed.
-A6. The user remains on the Authentication page.
-
-When the user submits the login form with the email field empty:
-A7. The login is not submitted.
-
-When the user submits the login form with the password field empty:
-A8. The login is not submitted.
-
-When the user selects "Sign Up":
-A9. The user is redirected to the Onboarding page.
+When the user selects "Sign Up":  
+A2. The user is redirected to the Onboarding page.  
 
 ## Onboarding Page
 
