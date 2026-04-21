@@ -2,6 +2,33 @@
 
 ## Global Elements
 
+On every page, when the user is not logged in:
+G1. The navigation bar displays the "Nestly" site name.
+G2. The navigation bar displays a "Home" link.
+G3. The navigation bar displays a "Login" link.
+
+On every page, when the user is logged in:
+G4. The navigation bar displays the "Nestly" site name.
+G5. The navigation bar displays a "Dashboard" link.
+G6. The navigation bar displays an "Activities" link.
+G7. The navigation bar displays a "Daily Plan" link.
+G8. The navigation bar displays a "Profile" link.
+G9. The navigation bar displays a "Logout" link.
+
+On every page:
+G10. The footer displays a brief description of the platform.
+G11. The footer displays contact information.
+
+When the user selects a navigation link:
+G12. The user is redirected to the page corresponding to the selected link.
+
+When a logged-in user selects "Logout":
+G13. The user's session is ended.
+G14. The user is redirected to the Home page.
+
+When an unauthenticated user attempts to navigate to any page other than Home:
+G15. The user is redirected to the Authentication page.
+
 ## Home Page
 
 When the Home Page loads:  
@@ -16,7 +43,45 @@ H6. If the user has completed onboarding, the Dashboard page is opened.
 
 ## Authentication Page
 
+When the Authentication page loads:
+A1. An email input field is displayed.
+A2. A password input field is displayed.
+A3. A "Login" button is displayed.
+A4. A "Sign Up" button is displayed.
+
+When the user submits the login form with a registered email and correct password:
+A5. The user is redirected to the Dashboard page.
+
+When the user submits the login form with an unrecognized email or incorrect password:
+A6. The message "Invalid email or password" is displayed.
+A7. The user remains on the Authentication page.
+
+When the user submits the login form with the email field empty:
+A8. The login is not submitted.
+
+When the user submits the login form with the password field empty:
+A9. The login is not submitted.
+
+When the user selects "Sign Up":
+A10. The user is redirected to the Onboarding page.
+
 ## Onboarding Page
+
+When the Onboarding page loads:
+O1. A child's age dropdown field is displayed.
+O2. A screen time limit dropdown field is displayed.
+O3. An interests text input field is displayed.
+O4. A "Submit" button is displayed.
+
+When the user submits the form with all fields completed:
+O5. The entered child's age is saved to the user's profile.
+O6. The entered screen time limit is saved to the user's profile.
+O7. The entered interests are saved to the user's profile.
+O8. The user is redirected to the Dashboard page.
+
+When the user submits the form with one or more fields left empty:
+O9. The message "Please complete all required fields" is displayed.
+O10. The form is not submitted.
 
 ## Dashboard Page
 
