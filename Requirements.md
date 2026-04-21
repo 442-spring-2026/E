@@ -130,7 +130,66 @@ S19. A confirmation message is displayed.
 
 ## Daily Plan Page
 
+When the Daily Plan page loads:
+DP1. A timeline for the current day is displayed.
+DP2. The remaining allowed screen time is displayed.
+DP3. All scheduled activities are displayed in their assigned time slots.
+
+When there are no activities in the Daily Plan:
+DP4. The message "No activities in your daily plan" is displayed.
+
+When the user adds an activity:
+DP5. The activity is placed into the selected time slot on the timeline.
+
+When the user removes an activity:
+DP6. The activity is removed from the timeline.
+
+When the user reorders activities:
+DP7. The activity is moved to the new position on timeline.
+
+When the user drags an activity to another time slot:
+DP8. The activity is reassigned to the new time slot.
+
+When a time slot is already occupied:
+DP9. The message "This time slot is already occupied" is displayed.
+
+When drag-and-drop fails:
+DP10. The message "Unable to move activity. Please try again." is displayed.
+
+When the user marks an activity as completed:
+DP11. The activity is displayed as completed.
+DP12. Reward points are added for the completed activity.
+
+When the user adds a reminder:
+DP13. A reminder is associated with the selected activity.
+
 ## Profile Page
+
+When the Profile page loads:
+P1. A field for child's age is displayed.
+P2. A field for screen time limit is displayed.
+P3. A field for interests is displayed.
+
+When the user has previously entered profile information:
+P4. The saved values for child's age, screen time limit, and interests are displayed.
+
+When the user edits the child's age:
+P5. The updated value is displayed in the child's age field.
+
+When the user edits the screen time limit:
+P6. The updated value is displayed in the screen time limit field.
+
+When the user edits interests:
+P7. The updated value is displayed in the interests field.
+
+When the user submits valid profile information:
+P8. The updated values are saved.
+
+When the profile is successfully saved:
+P9. The updated values are used for future activity recommendations.
+
+When the user submits invalid information:
+P10. The message "Please enter valid information" is displayed.
 
 ## Nonfunctional Requirements
 
