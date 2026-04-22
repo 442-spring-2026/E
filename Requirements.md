@@ -76,6 +76,44 @@ O7. The form is not submitted.
 
 ## Dashboard Page
 
+When the Dashboard page loads for a logged-in user:
+D1. The page displays the user's current day's total screen time.
+D2. The page displays the amount of screen time remaining for the current day.
+D3. The page displays a progress indicator representing the portion of the daily screen time limit that has been used.
+D4. The page displays a weekly screen time summary.
+D5. The page displays the user's current total reward points.
+D6. The page displays a button that opens activity suggestions.
+
+When the user's daily screen time is less than the daily screen time limit:
+D7. The remaining screen time value equals the daily screen time limit minus the current day's total screen time.
+D8. No screen time warning message is displayed.
+
+When the user's daily screen time is equal to the daily screen time limit:
+D9. The remaining screen time value is displayed as zero.
+D10. A warning message is displayed indicating that the daily screen time limit has been reached.
+
+When the user's daily screen time is greater than the recommended or configured limit:
+D11. A warning message is displayed indicating that screen time has exceeded the limit.
+
+When the Dashboard page displays the weekly screen time summary:
+D12. The summary includes one value for each day of the current week.
+D13. Each displayed daily value corresponds to the total screen time recorded for that day.
+
+When the user has no recorded screen time for a day in the current week:
+D14. The weekly screen time summary displays that day's value as zero.
+
+When reward points are displayed on the Dashboard page:
+D15. The displayed reward points value equals the user's current accumulated reward points total.
+
+When the user selects the button to view activity suggestions:
+D16. The user is redirected to the Activity Suggestions page.
+
+When the Dashboard page is opened after the user completes onboarding successfully:
+D17. The page uses the child's saved profile information to determine the displayed screen time limit and related dashboard values.
+
+When the Dashboard page is opened by an unauthenticated user:
+D18. The user is redirected to the Authentication page.
+
 ## Activity Suggestions Page
 
 When the Activity Suggestions page loads:  
