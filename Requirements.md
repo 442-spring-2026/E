@@ -118,32 +118,32 @@ S18. A confirmation message is displayed.
 
 ## Daily Plan Page
 
-When the Daily Plan page loads:  
-DP1. A timeline for the current day is displayed.
-DP2. The remaining allowed screen time is displayed.
-DP3. All scheduled activities are displayed in their assigned time slots.
+When the Daily Plan page loads:    
+DP1. A timeline for the current day is displayed.  
+DP2. The remaining allowed screen time is displayed.  
+DP3. All scheduled activities are displayed in their assigned time slots.  
 
-When there are no activities in the Daily Plan:  
-DP4. The message "No activities in your daily plan" is displayed.  
+When there are no activities in the Daily Plan:    
+DP4. The message "No activities in your daily plan" is displayed.    
 
-When the user clicks the "Remove" button for an activity:
-DP5. The activity disappears from the timeline.
+When the user clicks the "Remove" button for an activity:  
+DP5. The activity disappears from the timeline.  
 
-When the user drags an activity to reorder it:
-DP6. The activity is moved to the new position on the timeline.
+When the user drags an activity to reorder it:  
+DP6. The activity is moved to the new position on the timeline.  
 
-When the user drags an activity to another time slot:
-DP7. The activity is reassigned to the new time slot.
+When the user drags an activity to another time slot:  
+DP7. The activity is reassigned to the new time slot.  
 
-When the user attempts to place an activity into an occupied time slot:
-DP8. The message "This time slot is already occupied" is displayed.
+When the user attempts to place an activity into an occupied time slot:  
+DP8. The message "This time slot is already occupied" is displayed.  
 
-When the user clicks the "Complete" icon for an activity:
-DP9. The activity is displayed as completed.
-DP10. Reward points increase.
+When the user clicks the "Complete" icon for an activity:  
+DP9. The activity is displayed as completed.  
+DP10. Reward points increase.  
 
-When a reminder is added to an activity:
-DP11. The reminder is displayed with the corresponding activity.
+When a reminder is added to an activity:  
+DP11. The reminder is displayed with the corresponding activity.  
 
 ## Profile Page
 
@@ -170,7 +170,7 @@ P8. The updated values are saved.
 When the profile is successfully saved:  
 P9. The updated values are used for future activity recommendations.  
 
-When the user submits the form with any required field empty:
+When the user submits the form with any required field empty:  
 P10. The message "Please enter valid information" is displayed.
 
 ## Nonfunctional Requirements
