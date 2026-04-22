@@ -33,7 +33,7 @@ G15. The user is redirected to the Authentication page.
 
 When the Home Page loads:  
 H1. The title "Nestly" is displayed.  
-H2. A description and guidence of the platform is displayed.  
+H2. A description and guidance of the platform is displayed.  
 H3. A “Get Started” button is displayed.
 
 When the user selects "Get Started" button:  
@@ -227,4 +227,8 @@ NF1. The password input field masks characters as the user types.
 
 #### Usability
 On the Activity Suggestions page:  
-NF2. Filter dropdown menus remain usable on both desktop and mobile screen sizes.
+NF2. Filter dropdown menus are fully visible and operable without horizontal scrolling on both desktop and mobile screen sizes.
+
+#### Performance  
+On the Activity Suggestions page:  
+NF3. Filtered results are displayed within 1 second after the user applies filters.  
