@@ -130,7 +130,7 @@ S19. A confirmation message is displayed.
 
 ## Daily Plan Page
 
-When the Daily Plan page loads:
+When the Daily Plan page loads:  
 DP1. A timeline for the current day is displayed.
 DP2. The remaining allowed screen time is displayed.
 DP3. All scheduled activities are displayed in their assigned time slots.
@@ -138,30 +138,24 @@ DP3. All scheduled activities are displayed in their assigned time slots.
 When there are no activities in the Daily Plan:
 DP4. The message "No activities in your daily plan" is displayed.
 
-When the user adds an activity:
-DP5. The activity is placed into the selected time slot on the timeline.
+When the user clicks the "Remove" button for an activity:
+DP5. The activity disappears from the timeline.
 
-When the user removes an activity:
-DP6. The activity is removed from the timeline.
-
-When the user reorders activities:
-DP7. The activity is moved to the new position on timeline.
+When the user drags an activity to reorder it:
+DP6. The activity is moved to the new position on the timeline.
 
 When the user drags an activity to another time slot:
-DP8. The activity is reassigned to the new time slot.
+DP7. The activity is reassigned to the new time slot.
 
-When a time slot is already occupied:
-DP9. The message "This time slot is already occupied" is displayed.
+When the user attempts to place an activity into an occupied time slot:
+DP8. The message "This time slot is already occupied" is displayed.
 
-When drag-and-drop fails:
-DP10. The message "Unable to move activity. Please try again." is displayed.
+When the user clicks the "Complete" icon for an activity:
+DP9. The activity is displayed as completed.
+DP10. Reward points increase.
 
-When the user marks an activity as completed:
-DP11. The activity is displayed as completed.
-DP12. Reward points are added for the completed activity.
-
-When the user adds a reminder:
-DP13. A reminder is associated with the selected activity.
+When a reminder is added to an activity:
+DP11. The reminder is displayed with the corresponding activity.
 
 ## Profile Page
 
@@ -188,7 +182,7 @@ P8. The updated values are saved.
 When the profile is successfully saved:
 P9. The updated values are used for future activity recommendations.
 
-When the user submits invalid information:
+When the user submits the form with any required field empty:
 P10. The message "Please enter valid information" is displayed.
 
 ## Nonfunctional Requirements
