@@ -68,14 +68,11 @@ O3. An interests text input field is displayed.
 O4. A "Submit" button is displayed.  
 
 When the user submits the form with all fields completed:  
-O5. The entered child's age is saved to the user's profile.  
-O6. The entered screen time limit is saved to the user's profile.  
-O7. The entered interests are saved to the user's profile.  
-O8. The user is redirected to the Dashboard page.  
+O5. The user is redirected to the Dashboard page.  
 
 When the user submits the form with one or more fields left empty:  
-O9. The message "Please complete all required fields" is displayed.  
-O10. The form is not submitted.  
+O6. The message "Please complete all required fields" is displayed.  
+O7. The form is not submitted.  
 
 ## Dashboard Page
 
@@ -90,16 +87,16 @@ S4. A button to apply filters is displayed.
 Before any filters are applied:  
 S5. No activity recommendations are displayed.
 
-When the user selects a child age filter:  
+When the user selects a child age filter and clicks the Apply button:  
 S6. The activity list updates to show activities matching the selected age range.
 
-When the user selects an available time filter:  
+When the user selects an available time filter and clicks the Apply button:  
 S7. The activity list updates to show activities with duration within the selected time limit.
 
-When the user selects an activity type filter:  
+When the user selects an activity type filter and clicks the Apply button:  
 S8. The activity list updates to show activities matching the selected category.
 
-When the user applies one or more filters:  
+When the user applies one or more filters and clicks the Apply button:  
 S9. A list of activities matching the selected filters is displayed.
 
 When no activities match the selected filters:  
@@ -114,13 +111,10 @@ S15. The reward points value is displayed.
 S16. A button to add the activity to the Daily Plan is displayed.  
 
 When the user selects “Add to Plan” for an activity:  
-S17. A time selection option is displayed.  
-
-When the user selects a time slot:  
-S18. The selected activity is added to the Daily Plan at the chosen time.  
+S17. A time selection option is displayed.    
 
 After the activity is added to the Daily Plan:  
-S19. A confirmation message is displayed.
+S18. A confirmation message is displayed.
 
 ## Daily Plan Page
 
