@@ -214,13 +214,10 @@ When the user edits interests:
 P7. The updated value is displayed in the interests field.  
 
 When the user submits valid profile information:  
-P8. The updated values are saved.  
-
-When the profile is successfully saved:  
-P9. The updated values are used for future activity recommendations.  
+P8. The updated values are saved.    
 
 When the user submits the form with any required field empty:  
-P10. The message "Please enter valid information" is displayed.
+P9. The message "Please enter valid information" is displayed.
 
 ## Nonfunctional Requirements
 
