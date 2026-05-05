@@ -1,7 +1,7 @@
 # Testing Plan
 
 ## Types of Tests
-We will mainly do manual acceptance testing by going through each feature after it's implemented and checking that it matches what we defined in Requirements.md. We will also perform basic integration testing to make sure different parts of the app such as frontend and backend or multiple components work together correctly. If time allows, we may add small automated unit tests for core logic like the reward points system.
+We will mainly do manual integration testing by going through each feature after it's implemented and checking that it matches what we defined in Requirements.md. We will also perform basic integration testing to make sure different parts of the app such as frontend and backend or multiple components work together correctly. If time allows, we may add small automated unit tests for core logic like the reward points system.
 
 ## Process
 Saleh and Mo will test each feature as it gets built. After implementing a feature, the developer who worked on it will first test it locally to make sure it works as expected. Before anything gets merged into main, we’ll open a pull request so the other developer can review the code and test the feature as well. This ensures that every feature is tested by at least two people before being merged.
