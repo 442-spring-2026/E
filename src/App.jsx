@@ -1,15 +1,40 @@
-import './App.css'
+import { useState } from 'react'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import Navbar from './components/Navbar'
+import Footer from './components/Footer'
+import Home from './pages/Home'
+import Authentication from './pages/Authentication'
+import Onboarding from './pages/Onboarding'
+import Dashboard from './pages/Dashboard'
+import Activities from './pages/Activities'
+import DailyPlan from './pages/DailyPlan'
+import Profile from './pages/Profile'
+
+function ProtectedRoute({ isLoggedIn, children }) {
+  return isLoggedIn ? children : <Navigate to="/login" />
+}
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+
   return (
-    <div style={{ textAlign: 'center', padding: '80px 20px', fontFamily: 'sans-serif' }}>
-      <h1>Nestly</h1>
-      <p style={{ maxWidth: '500px', margin: '20px auto', fontSize: '1.1rem', color: '#555' }}>
-        Nestly helps parents manage their children's screen time by suggesting
-        fun indoor, outdoor, and family activities to do instead. Build healthy
-        habits, track daily usage, and earn rewards along the way.
-      </p>
-    </div>
+    <BrowserRouter basename="/E">
+      <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+        <Navbar isLoggedIn={isLoggedIn} onLogout={() => setIsLoggedIn(false)} />
+        <main style={{ flex: 1 }}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Authentication onLogin={() => setIsLoggedIn(true)} />} />
+            <Route path="/onboarding" element={<Onboarding />} />
+            <Route path="/dashboard" element={<ProtectedRoute isLoggedIn={isLoggedIn}><Dashboard /></ProtectedRoute>} />
+            <Route path="/activities" element={<ProtectedRoute isLoggedIn={isLoggedIn}><Activities /></ProtectedRoute>} />
+            <Route path="/daily-plan" element={<ProtectedRoute isLoggedIn={isLoggedIn}><DailyPlan /></ProtectedRoute>} />
+            <Route path="/profile" element={<ProtectedRoute isLoggedIn={isLoggedIn}><Profile /></ProtectedRoute>} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </BrowserRouter>
   )
 }
 
