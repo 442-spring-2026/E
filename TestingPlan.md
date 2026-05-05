@@ -6,7 +6,7 @@ We will mainly do manual integration testing by going through each feature after
 ## Process
 Saleh and Mo will test each feature as it gets built. After implementing a feature, the developer who worked on it will first test it locally to make sure it works as expected. Before anything gets merged into main, we’ll open a pull request so the other developer can review the code and test the feature as well. This ensures that every feature is tested by at least two people before being merged.
 
-Once a bigger chunk of features are done such as at major milestones or before final submission, we’ll have Romey and Xintong go through the app and perform full manual acceptance testing to make sure everything looks right, works correctly, and matches the design and requirements.
+Once a bigger chunk of features are done such as at major milestones or before final submission, we’ll have Romey and Xintong go through the app and perform full manual acceptance testing in production environment to make sure everything looks right, works correctly, and matches the design and requirements.
 
 We will repeat this process continuously throughout development until the final deployment.
 
