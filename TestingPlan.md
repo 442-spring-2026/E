@@ -1,13 +1,21 @@
 # Testing Plan
 
 ## Types of Tests
-We will mainly do manual testing by going through each feature after it's coded and checking that it matches what we wrote in our Requirements.md. We may also set up some automated tests for core logic like the reward points system if time allows.
+We will mainly do manual acceptance testing by going through each feature after it's implemented and checking that it matches what we defined in Requirements.md. We will also perform basic integration testing to make sure different parts of the app such as frontend and backend or multiple components work together correctly. If time allows, we may add small automated unit tests for core logic like the reward points system.
 
 ## Process
-Saleh and Mo will test each feature as it gets built. Before anything gets merged into main, we'll open a pull request so the other developer can take a look first. Once a bigger chunk of features are done, we'll have Romey and Xintong go through the app and make sure everything looks right and matches the design.
+Saleh and Mo will test each feature as it gets built. After implementing a feature, the developer who worked on it will first test it locally to make sure it works as expected. Before anything gets merged into main, we’ll open a pull request so the other developer can review the code and test the feature as well. This ensures that every feature is tested by at least two people before being merged.
+
+Once a bigger chunk of features are done such as at major milestones or before final submission, we’ll have Romey and Xintong go through the app and perform full manual acceptance testing to make sure everything looks right, works correctly, and matches the design and requirements.
+
+We will repeat this process continuously throughout development until the final deployment.
 
 ## Environments
-We'll be testing on our local machines during development. Once we're closer to done, we'll deploy to Vercel or GitHub Pages and do a final check there. We'll be testing on Chrome on desktop.
+During development, testing will be done on local machines using a development environment. Before final submission, the app will be deployed such as on Vercel or GitHub Pages, and testing will also be performed in the production environment.
+
+Testing will primarily be done on desktop using Google Chrome. If possible and if there's extra time, we will also do light testing on other browsers such as Safari and different screen sizes to ensure basic compatibility.
 
 ## Failure Protocol
-If anyone on the team finds a bug or something that doesn't look right, they'll open a GitHub Issue describing what's wrong and how to reproduce it. Saleh and Mo will look at it and figure out who should fix it based on who worked on that part of the code. The fix gets submitted as a pull request before it gets merged in.
+If a bug or issue is found, the tester will create a GitHub Issue describing the problem, including steps to reproduce it and expected vs. actual behavior. Saleh and Mo will review the issue, prioritize it, and assign it to the appropriate team member based on ownership of that part of the code.
+
+Fixes will be implemented in a separate branch and submitted through a pull request. The fix must be reviewed and tested before being merged into the main branch.
