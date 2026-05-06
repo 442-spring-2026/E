@@ -38,7 +38,7 @@ function App() {
     <HashRouter>
       <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <Navbar isLoggedIn={!!user} onLogout={handleLogout} />
-        <main style={{ flex: 1 }}>
+        <main style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
           <Routes>
             <Route path="/" element={<Home user={user} />} />
             <Route path="/login" element={<Authentication />} />
