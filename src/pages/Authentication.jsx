@@ -8,6 +8,7 @@ function Authentication() {
   const [mode, setMode] = useState('login')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
@@ -24,6 +25,10 @@ function Authentication() {
       setError('* Password is required')
       return
     }
+    if (mode === 'signup' && password !== confirmPassword) {
+      setError('* Passwords do not match')
+      return
+    }
 
     setLoading(true)
 
@@ -38,6 +43,7 @@ function Authentication() {
         }
       } else {
         await createUserWithEmailAndPassword(auth, email, password)
+        setConfirmPassword('')
         navigate('/onboarding')
       }
     } catch (err) {
@@ -72,6 +78,19 @@ function Authentication() {
             style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #ccc', marginBottom: '20px', boxSizing: 'border-box', fontSize: '1rem' }}
           />
 
+          {mode === 'signup' && (
+            <>
+              <label style={{ fontWeight: 'bold', display: 'block', marginBottom: '6px' }}>Confirm Password</label>
+              <input
+                type="password"
+                placeholder="••••••••"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #ccc', marginBottom: '20px', boxSizing: 'border-box', fontSize: '1rem' }}
+              />
+            </>
+          )}
+
           <div style={{ display: 'flex', gap: '12px', marginBottom: '12px' }}>
             <button
               type="submit"
@@ -82,7 +101,7 @@ function Authentication() {
             </button>
             <button
               type="button"
-              onClick={() => { setMode(mode === 'login' ? 'signup' : 'login'); setError('') }}
+              onClick={() => { setMode(mode === 'login' ? 'signup' : 'login'); setError(''); setConfirmPassword('') }}
               style={{ padding: '10px 24px', backgroundColor: '#555', color: 'white', border: 'none', borderRadius: '6px', cursor: 'pointer', fontSize: '1rem' }}
             >
               {mode === 'login' ? 'Sign Up' : 'Back to Login'}
