@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8" />
     <script>
-      window.location.replace('/E/' + window.location.pathname.split('/E/')[1]);
+      sessionStorage.setItem('redirect', location.pathname + location.search);
+      location.replace('/E/');
     </script>
   </head>
 </html>
