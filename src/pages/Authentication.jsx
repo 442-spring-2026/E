@@ -50,7 +50,7 @@ function Authentication() {
   return (
     <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#f0f2f5' }}>
       <div style={{ backgroundColor: 'white', padding: '40px', borderRadius: '12px', width: '100%', maxWidth: '500px', boxShadow: '0 2px 12px rgba(0,0,0,0.08)' }}>
-        <h2 style={{ marginBottom: '8px' }}>Welcome Back</h2>
+        <h2 style={{ marginBottom: '8px' }}>{mode === 'login' ? 'Welcome Back' : 'Create an Account'}</h2>
         <p style={{ color: '#666', marginBottom: '24px' }}>Log in or create an account to start building healthier family habits.</p>
 
         <form onSubmit={handleSubmit}>
@@ -83,7 +83,7 @@ function Authentication() {
             <button
               type="button"
               onClick={() => { setMode(mode === 'login' ? 'signup' : 'login'); setError('') }}
-              style={{ padding: '10px 24px', backgroundColor: '#e0e0e0', border: 'none', borderRadius: '6px', cursor: 'pointer', fontSize: '1rem' }}
+              style={{ padding: '10px 24px', backgroundColor: '#555', color: 'white', border: 'none', borderRadius: '6px', cursor: 'pointer', fontSize: '1rem' }}
             >
               {mode === 'login' ? 'Sign Up' : 'Back to Login'}
             </button>
