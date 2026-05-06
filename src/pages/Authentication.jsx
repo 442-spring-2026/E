@@ -48,7 +48,7 @@ function Authentication() {
   }
 
   return (
-    <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#f0f2f5' }}>
+    <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#f0f2f5', padding: '40px 20px' }}>
       <div style={{ backgroundColor: 'white', padding: '40px', borderRadius: '12px', width: '100%', maxWidth: '500px', boxShadow: '0 2px 12px rgba(0,0,0,0.08)' }}>
         <h2 style={{ marginBottom: '8px', color: '#666' }}>{mode === 'login' ? 'Welcome Back' : 'Create an Account'}</h2>
         <p style={{ color: '#666', marginBottom: '24px' }}>Log in or create an account to start building healthier family habits.</p>
