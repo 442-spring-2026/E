@@ -1,5 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { onAuthStateChanged, signOut } from 'firebase/auth'
+import { auth } from './firebase'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Home from './pages/Home'
@@ -10,26 +12,41 @@ import Activities from './pages/Activities'
 import DailyPlan from './pages/DailyPlan'
 import Profile from './pages/Profile'
 
-function ProtectedRoute({ isLoggedIn, children }) {
-  return isLoggedIn ? children : <Navigate to="/login" />
+function ProtectedRoute({ user, children }) {
+  return user ? children : <Navigate to="/login" />
 }
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser)
+      setLoading(false)
+    })
+    return unsubscribe
+  }, [])
+
+  function handleLogout() {
+    signOut(auth)
+  }
+
+  if (loading) return null
 
   return (
     <BrowserRouter basename="/E">
       <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-        <Navbar isLoggedIn={isLoggedIn} onLogout={() => setIsLoggedIn(false)} />
+        <Navbar isLoggedIn={!!user} onLogout={handleLogout} />
         <main style={{ flex: 1 }}>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Authentication onLogin={() => setIsLoggedIn(true)} />} />
+            <Route path="/" element={<Home user={user} />} />
+            <Route path="/login" element={<Authentication />} />
             <Route path="/onboarding" element={<Onboarding />} />
-            <Route path="/dashboard" element={<ProtectedRoute isLoggedIn={isLoggedIn}><Dashboard /></ProtectedRoute>} />
-            <Route path="/activities" element={<ProtectedRoute isLoggedIn={isLoggedIn}><Activities /></ProtectedRoute>} />
-            <Route path="/daily-plan" element={<ProtectedRoute isLoggedIn={isLoggedIn}><DailyPlan /></ProtectedRoute>} />
-            <Route path="/profile" element={<ProtectedRoute isLoggedIn={isLoggedIn}><Profile /></ProtectedRoute>} />
+            <Route path="/dashboard" element={<ProtectedRoute user={user}><Dashboard /></ProtectedRoute>} />
+            <Route path="/activities" element={<ProtectedRoute user={user}><Activities /></ProtectedRoute>} />
+            <Route path="/daily-plan" element={<ProtectedRoute user={user}><DailyPlan /></ProtectedRoute>} />
+            <Route path="/profile" element={<ProtectedRoute user={user}><Profile /></ProtectedRoute>} />
           </Routes>
         </main>
         <Footer />
