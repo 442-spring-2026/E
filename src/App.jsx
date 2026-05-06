@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { onAuthStateChanged, signOut } from 'firebase/auth'
 import { auth } from './firebase'
 import Navbar from './components/Navbar'
@@ -35,7 +35,7 @@ function App() {
   if (loading) return null
 
   return (
-    <BrowserRouter basename="/E">
+    <HashRouter>
       <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <Navbar isLoggedIn={!!user} onLogout={handleLogout} />
         <main style={{ flex: 1 }}>
@@ -51,7 +51,7 @@ function App() {
         </main>
         <Footer />
       </div>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 
