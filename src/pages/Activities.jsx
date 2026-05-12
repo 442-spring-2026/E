@@ -1,56 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import { collection, getDocs } from 'firebase/firestore'
+import { db } from '../firebase'
+import { seedActivities } from '../utils/seedActivities'
 import './Activities.css'
-
-const activities = [
-  {
-    name: 'Family Cooking',
-    description: 'Cook a simple meal together and encourage teamwork at home.',
-    duration: '30 min',
-    type: 'Family Bonding',
-    age: '6-8 years old',
-    points: '+20 pts',
-  },
-  {
-    name: 'Drawing Time',
-    description: 'Spend time drawing, coloring, or making a small creative project.',
-    duration: '20 min',
-    type: 'Indoor',
-    age: '6-8 years old',
-    points: '+15 pts',
-  },
-  {
-    name: 'Nature Walk',
-    description: 'Take a short walk outside together and explore the neighborhood.',
-    duration: '25 min',
-    type: 'Outdoor',
-    age: '6-8 years old',
-    points: '+20 pts',
-  },
-  {
-    name: 'Board Game Night',
-    description: 'Play a board game together to build connection and reduce screen time.',
-    duration: '40 min',
-    type: 'Family Bonding',
-    age: '6-8 years old',
-    points: '+25 pts',
-  },
-  {
-    name: 'Reading Challenge',
-    description: 'Read a short story or chapter and share one favorite part.',
-    duration: '15 min',
-    type: 'Indoor',
-    age: '12+ years old',
-    points: '+10 pts',
-  },
-  {
-    name: 'Bike Ride',
-    description: 'Go on a supervised bike ride or outdoor movement break.',
-    duration: '50 min',
-    type: 'Outdoor',
-    age: '12+ years old',
-    points: '+30 pts',
-  },
-]
 
 const timeSlots = [
   { time: '10:00 AM', availableMinutes: 20 },
@@ -61,10 +13,24 @@ const timeSlots = [
 ]
 
 function Activities() {
+  const [activities, setActivities] = useState([])
+  const activitiesRef = useRef([])
   const [ageFilter, setAgeFilter] = useState('')
   const [timeFilter, setTimeFilter] = useState('')
   const [typeFilter, setTypeFilter] = useState('')
-  const [filteredActivities, setFilteredActivities] = useState(activities)
+  const [filteredActivities, setFilteredActivities] = useState([])
+
+  useEffect(() => {
+    async function loadActivities() {
+      await seedActivities()
+      const snapshot = await getDocs(collection(db, 'activities'))
+      const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+      activitiesRef.current = data
+      setActivities(data)
+      setFilteredActivities(data)
+    }
+    loadActivities()
+  }, [])
 
   const [selectedActivity, setSelectedActivity] = useState(null)
   const [selectedTime, setSelectedTime] = useState('')
@@ -76,7 +42,7 @@ function Activities() {
   }
 
   function handleApplyFilters() {
-    let results = activities
+    let results = activitiesRef.current
 
     if (ageFilter) {
       results = results.filter((activity) => activity.age === ageFilter)
