@@ -107,3 +107,23 @@ select {
         width: 100%;
     }
 }
+
+.error-message {
+  color: #b00020;
+  font-weight: 600;
+  margin-top: 12px;
+}
+
+.success-message {
+  color: #2e8b3c;
+  font-weight: 700;
+  margin: 16px 0;
+}
+
+.no-activities-message {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  color: #555;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
