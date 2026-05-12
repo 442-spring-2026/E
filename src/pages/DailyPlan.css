@@ -132,3 +132,7 @@
   color: #555;
   margin: 16px 0;
 }
+
+.schedule-status.completed {
+  color: #2e8b3c;
+}

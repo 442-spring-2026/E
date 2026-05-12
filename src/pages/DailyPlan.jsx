@@ -6,13 +6,25 @@ function DailyPlan() {
 
   useEffect(() => {
     const savedPlan = JSON.parse(localStorage.getItem('dailyPlan')) || []
-
     const sortedPlan = savedPlan.sort((a, b) => {
       return new Date(`2000/01/01 ${a.time}`) - new Date(`2000/01/01 ${b.time}`)
     })
-
     setSchedule(sortedPlan)
   }, [])
+
+  function handleRemove(time) {
+    const updated = schedule.filter((item) => item.time !== time)
+    localStorage.setItem('dailyPlan', JSON.stringify(updated))
+    setSchedule(updated)
+  }
+
+  function handleComplete(time) {
+    const updated = schedule.map((item) =>
+      item.time === time ? { ...item, status: 'Completed' } : item
+    )
+    localStorage.setItem('dailyPlan', JSON.stringify(updated))
+    setSchedule(updated)
+  }
 
   return (
     <main className="daily-plan-page">
@@ -39,7 +51,7 @@ function DailyPlan() {
             </div>
 
             <p className="reward-text">
-              Reward Points: {schedule.length * 20} ⭐
+              Reward Points: {schedule.filter(i => i.status === 'Completed').length * 5} ⭐
             </p>
           </div>
 
@@ -66,9 +78,23 @@ function DailyPlan() {
                   <p>{item.details}</p>
                 </div>
 
-                <div className="schedule-status planned">
+                <div className={`schedule-status ${item.status === 'Completed' ? 'completed' : 'planned'}`}>
                   {item.status}
                 </div>
+                {item.status !== 'Completed' && (
+                  <button
+                    onClick={() => handleComplete(item.time)}
+                    style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#2e8b3c', fontWeight: 'bold', fontSize: '0.9rem' }}
+                  >
+                    Complete
+                  </button>
+                )}
+                <button
+                  onClick={() => handleRemove(item.time)}
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#e53e3e', fontWeight: 'bold', fontSize: '0.9rem' }}
+                >
+                  Remove
+                </button>
               </div>
             ))
           )}

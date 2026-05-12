@@ -5,15 +5,18 @@ import { seedActivities } from '../utils/seedActivities'
 import './Activities.css'
 
 const timeSlots = [
-  { time: '10:00 AM', availableMinutes: 20 },
-  { time: '1:00 PM', availableMinutes: 25 },
-  { time: '5:00 PM', availableMinutes: 30 },
-  { time: '7:30 PM', availableMinutes: 40 },
-  { time: '8:30 PM', availableMinutes: 60 },
+  { time: '9:00 AM', availableMinutes: 60 },
+  { time: '10:00 AM', availableMinutes: 60 },
+  { time: '12:00 PM', availableMinutes: 60 },
+  { time: '3:00 PM', availableMinutes: 60 },
+  { time: '5:00 PM', availableMinutes: 60 },
+  { time: '7:00 PM', availableMinutes: 60 },
 ]
 
 function Activities() {
   const [activities, setActivities] = useState([])
+  const [loadingActivities, setLoadingActivities] = useState(true)
+  const [filtersApplied, setFiltersApplied] = useState(false)
   const activitiesRef = useRef([])
   const [ageFilter, setAgeFilter] = useState('')
   const [timeFilter, setTimeFilter] = useState('')
@@ -27,7 +30,8 @@ function Activities() {
       const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
       activitiesRef.current = data
       setActivities(data)
-      setFilteredActivities(data)
+      setFilteredActivities([])
+      setLoadingActivities(false)
     }
     loadActivities()
   }, [])
@@ -73,6 +77,15 @@ function Activities() {
     }
 
     setFilteredActivities(results)
+    setFiltersApplied(true)
+  }
+
+  function handleResetFilters() {
+    setAgeFilter('')
+    setTimeFilter('')
+    setTypeFilter('')
+    setFilteredActivities([])
+    setFiltersApplied(false)
   }
 
   function handleAddToPlan(activity) {
@@ -153,9 +166,17 @@ function Activities() {
           </label>
         </div>
 
-        <button className="primary-button" onClick={handleApplyFilters}>
-          Apply Filters
-        </button>
+        <div style={{ display: 'flex', gap: '12px' }}>
+          <button className="primary-button" onClick={handleApplyFilters}>
+            Apply Filters
+          </button>
+          <button
+            onClick={handleResetFilters}
+            style={{ padding: '10px 18px', backgroundColor: '#888', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: '700' }}
+          >
+            Reset
+          </button>
+        </div>
       </section>
 
       {selectedActivity && (
@@ -182,9 +203,17 @@ function Activities() {
             </select>
           </label>
 
-          <button className="primary-button" onClick={handleConfirm}>
-            Confirm Time
-          </button>
+          <div style={{ display: 'flex', gap: '12px', marginTop: '12px' }}>
+            <button className="primary-button" onClick={handleConfirm}>
+              Confirm Time
+            </button>
+            <button
+              onClick={() => { setSelectedActivity(null); setErrorMessage('') }}
+              style={{ padding: '10px 18px', backgroundColor: '#888', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: '700' }}
+            >
+              Cancel
+            </button>
+          </div>
 
           {errorMessage && <p className="error-message">{errorMessage}</p>}
         </section>
@@ -201,7 +230,11 @@ function Activities() {
 
         {filteredActivities.length === 0 ? (
           <p className="no-activities-message">
-            No activities found. Try adjusting filters.
+            {!filtersApplied
+              ? loadingActivities
+                ? 'Loading activities...'
+                : 'Please select filters to show personalized recommended activities.'
+              : 'No activities found. Try adjusting filters.'}
           </p>
         ) : (
           <div className="activity-grid">
