@@ -34,6 +34,22 @@ const activities = [
     age: '6-8 years old',
     points: '+25 pts',
   },
+  {
+    name: 'Reading Challenge',
+    description: 'Read a short story or chapter and share one favorite part.',
+    duration: '15 min',
+    type: 'Indoor',
+    age: '12+ years old',
+    points: '+10 pts',
+  },
+  {
+    name: 'Bike Ride',
+    description: 'Go on a supervised bike ride or outdoor movement break.',
+    duration: '50 min',
+    type: 'Outdoor',
+    age: '12+ years old',
+    points: '+30 pts',
+  },
 ]
 
 const timeSlots = [
@@ -41,6 +57,7 @@ const timeSlots = [
   { time: '1:00 PM', availableMinutes: 25 },
   { time: '5:00 PM', availableMinutes: 30 },
   { time: '7:30 PM', availableMinutes: 40 },
+  { time: '8:30 PM', availableMinutes: 60 },
 ]
 
 function Activities() {
