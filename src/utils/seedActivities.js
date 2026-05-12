@@ -1,4 +1,4 @@
-import { doc, setDoc } from 'firebase/firestore'
+import { doc, setDoc, getDoc } from 'firebase/firestore'
 import { db } from '../firebase'
 
 const defaultActivities = [
@@ -38,8 +38,13 @@ const defaultActivities = [
 ]
 
 export async function seedActivities() {
+  const flagDoc = await getDoc(doc(db, 'meta', 'seeded'))
+  if (flagDoc.exists()) return
+
   for (const activity of defaultActivities) {
     const { id, ...data } = activity
     await setDoc(doc(db, 'activities', id), data)
   }
+
+  await setDoc(doc(db, 'meta', 'seeded'), { done: true })
 }

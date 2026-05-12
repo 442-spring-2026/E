@@ -167,12 +167,13 @@ function Activities() {
         </div>
 
         <div style={{ display: 'flex', gap: '12px' }}>
-          <button className="primary-button" onClick={handleApplyFilters}>
+          <button className="primary-button" onClick={handleApplyFilters} disabled={loadingActivities}>
             Apply Filters
           </button>
           <button
             onClick={handleResetFilters}
-            style={{ padding: '10px 18px', backgroundColor: '#888', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: '700' }}
+            disabled={loadingActivities}
+            style={{ padding: '10px 18px', backgroundColor: loadingActivities ? '#ccc' : '#888', color: 'white', border: 'none', borderRadius: '8px', cursor: loadingActivities ? 'not-allowed' : 'pointer', fontWeight: '700' }}
           >
             Reset
           </button>

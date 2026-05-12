@@ -58,6 +58,11 @@ select {
     cursor: pointer;
 }
 
+.primary-button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
 .primary-button:hover {
     background: #176b2d;
 }
