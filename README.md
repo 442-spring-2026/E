@@ -1,16 +1,30 @@
-# React + Vite
+# Nestly
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A web app that helps parents manage their children's screen time by suggesting meaningful activities to do instead.
 
-Currently, two official plugins are available:
+## Live Site
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+https://442-spring-2026.github.io/E/
 
-## React Compiler
+## Team
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Xintong Hou (Project Manager)
+- Romey Pan (Product Designer)
+- Saleh Kamel (Developer)
+- Mo Khairullah (Developer)
 
-## Expanding the ESLint configuration
+## Mission Statement
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Our mission is to make digital education resources more accessible and usable for elementary school students living in remote or rural areas.
+
+## Testing Plan
+
+See [TestingPlan.md](TestingPlan.md)
+
+## Requirements
+
+See [Requirements.md](Requirements.md)
+
+## Specifications
+
+See [Specifications.md](Specifications.md)
