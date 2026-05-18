@@ -136,3 +136,43 @@
 .schedule-status.completed {
   color: #2e8b3c;
 }
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.timeline-row {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+  align-items: center;
+}
+
+.timeline-time {
+  font-weight: 700;
+  color: #444;
+  font-size: 0.9rem;
+}
+
+.timeline-content {
+  flex: 1;
+}
+
+.empty-slot {
+  color: #bbb;
+  font-style: italic;
+  font-size: 0.9rem;
+  padding: 10px 14px;
+  border: 1px dashed #ddd;
+  border-radius: 8px;
+}
+
+@media (max-width: 700px) {
+  .timeline-row {
+    grid-template-columns: 80px 1fr;
+  }
+}
