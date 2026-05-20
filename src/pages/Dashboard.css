@@ -1,0 +1,103 @@
+.dashboard-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.dashboard-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.dashboard-card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  margin-bottom: 1.5rem;
+}
+
+.screen-time-number {
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 0.5rem 0;
+}
+
+.progress-bar {
+  width: 80%;
+  height: 8px;
+  background-color: #ddd;
+  border-radius: 999px;
+  margin-top: 1rem;
+}
+
+.progress-fill {
+  width: 70%;
+  height: 100%;
+  background-color: #4caf50;
+  border-radius: 999px;
+}
+
+.warning-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.warning-message {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.weekly-chart {
+  display: flex;
+  align-items: end;
+  gap: 1rem;
+  height: 180px;
+  margin-top: 2rem;
+}
+
+.chart-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chart-bar {
+  width: 34px;
+  background-color: #9ccbd8;
+  border-radius: 6px 6px 0 0;
+}
+
+.reward-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.suggestions-button {
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.9rem 1.4rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.suggestions-button:hover {
+  background-color: darkgreen;
+}
+
+@media (max-width: 768px) {
+  .dashboard-top {
+    grid-template-columns: 1fr;
+  }
+
+  .progress-bar {
+    width: 100%;
+  }
+}
