@@ -199,6 +199,7 @@ function Activities() {
             Age Group
             <select value={ageFilter} onChange={(e) => setAgeFilter(e.target.value)}>
               <option value="">All ages</option>
+              <option value="2-5 years old">2-5 years old</option>
               <option value="6-8 years old">6-8 years old</option>
               <option value="9-11 years old">9-11 years old</option>
               <option value="12+ years old">12+ years old</option>

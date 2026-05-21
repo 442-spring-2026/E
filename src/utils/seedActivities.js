@@ -2,6 +2,22 @@ import { doc, setDoc, getDoc } from 'firebase/firestore'
 import { db } from '../firebase'
 
 const defaultActivities = [
+  // 2-5 years old
+  { id: 'storytime-25', name: 'Storytime', description: 'Read a picture book together before bed.', duration: '15 min', type: 'Indoor', age: '2-5 years old', points: '+10 pts' },
+  { id: 'dance-party-25', name: 'Dance Party', description: 'Put on some music and dance together at home.', duration: '15 min', type: 'Family Bonding', age: '2-5 years old', points: '+10 pts' },
+  { id: 'finger-painting-25', name: 'Finger Painting', description: 'Let your toddler explore colors and creativity with finger paints.', duration: '20 min', type: 'Indoor', age: '2-5 years old', points: '+15 pts' },
+  { id: 'playground-25', name: 'Playground Trip', description: 'Head to the playground for some outdoor fun and fresh air.', duration: '30 min', type: 'Outdoor', age: '2-5 years old', points: '+20 pts' },
+  { id: 'bubbles-25', name: 'Bubble Play', description: 'Blow bubbles outside and chase them around together.', duration: '15 min', type: 'Outdoor', age: '2-5 years old', points: '+10 pts' },
+  { id: 'sorting-game-25', name: 'Sorting Game', description: 'Sort toys, blocks, or household items by color and shape together.', duration: '20 min', type: 'Indoor', age: '2-5 years old', points: '+15 pts' },
+  { id: 'family-walk-25', name: 'Family Walk', description: 'Take a slow walk around the block and point out things you see.', duration: '20 min', type: 'Outdoor', age: '2-5 years old', points: '+15 pts' },
+  { id: 'sing-along-25', name: 'Sing-Along', description: 'Sing nursery rhymes or favorite songs together.', duration: '15 min', type: 'Family Bonding', age: '2-5 years old', points: '+10 pts' },
+  { id: 'playdough-25', name: 'Playdough Sculpting', description: 'Make shapes and animals together with playdough.', duration: '25 min', type: 'Indoor', age: '2-5 years old', points: '+15 pts' },
+  { id: 'nature-collect-25', name: 'Nature Collecting', description: 'Go outside and collect leaves, rocks, or flowers together.', duration: '30 min', type: 'Outdoor', age: '2-5 years old', points: '+20 pts' },
+  { id: 'puzzle-25', name: 'Simple Puzzle', description: 'Work on a simple puzzle together to build focus and problem-solving.', duration: '20 min', type: 'Family Bonding', age: '2-5 years old', points: '+15 pts' },
+  { id: 'block-building-25', name: 'Block Building', description: 'Build towers and structures with blocks or duplos.', duration: '25 min', type: 'Indoor', age: '2-5 years old', points: '+15 pts' },
+  { id: 'water-play-25', name: 'Water Play', description: 'Play with cups and water in a safe outdoor setting.', duration: '30 min', type: 'Outdoor', age: '2-5 years old', points: '+20 pts' },
+  { id: 'cooking-helper-25', name: 'Kitchen Helper', description: 'Let your child help with simple tasks like mixing or pouring.', duration: '20 min', type: 'Family Bonding', age: '2-5 years old', points: '+15 pts' },
+
   // 6-8 years old
   { id: 'family-cooking', name: 'Family Cooking', description: 'Cook a simple meal together and encourage teamwork at home.', duration: '30 min', type: 'Family Bonding', age: '6-8 years old', points: '+20 pts' },
   { id: 'drawing-time', name: 'Drawing Time', description: 'Spend time drawing, coloring, or making a small creative project.', duration: '20 min', type: 'Indoor', age: '6-8 years old', points: '+15 pts' },
