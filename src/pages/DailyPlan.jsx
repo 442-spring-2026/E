@@ -57,7 +57,7 @@ function DailyPlan() {
   }
 
   function saveSchedule(updatedSchedule) {
-    const sortedPlan = updatedSchedule.sort((a, b) => {
+    const sortedPlan = [...updatedSchedule].sort((a, b) => {
       return new Date(`2000/01/01 ${a.time}`) - new Date(`2000/01/01 ${b.time}`)
     })
 
@@ -146,7 +146,10 @@ function DailyPlan() {
 
   const selectedChildData = children[selectedChild]
   const screenTimeLimit = Number(selectedChildData?.screenTime || 120)
-  const usedScreenTime = 30
+  const d = new Date()
+  const today = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+  const storedSessions = JSON.parse(localStorage.getItem(`screenTime-${selectedChild}-${today}`)) || []
+  const usedScreenTime = storedSessions.reduce((sum, s) => sum + s.minutes, 0)
   const remainingScreenTime = Math.max(screenTimeLimit - usedScreenTime, 0)
   const screenTimePercent = Math.min((remainingScreenTime / screenTimeLimit) * 100, 100)
 
