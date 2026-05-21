@@ -74,7 +74,7 @@ function Profile() {
     setSuccessMessage('')
 
     for (const child of children) {
-      if (!child.name.trim() || !child.age || !child.screenTime || !child.interests.trim()) {
+      if (!child.age || !child.screenTime || !child.interests.trim()) {
         setError('Please enter valid information for each child.')
         return
       }
