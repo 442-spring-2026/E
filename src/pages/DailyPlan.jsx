@@ -9,49 +9,152 @@ function DailyPlan() {
   const [schedule, setSchedule] = useState([])
   const [children, setChildren] = useState([])
   const [selectedChild, setSelectedChild] = useState(0)
+  const [draggedActivity, setDraggedActivity] = useState(null)
+  const [errorMessage, setErrorMessage] = useState('')
+  const [reminderMessage, setReminderMessage] = useState('')
 
   useEffect(() => {
     async function loadChildren() {
       const profileDoc = await getDoc(doc(db, 'users', auth.currentUser.uid))
+
       if (profileDoc.exists()) {
         const data = profileDoc.data()
+
         if (data.children && data.children.length > 0) {
           setChildren(data.children)
         } else if (data.age) {
-          setChildren([{ age: data.age, screenTime: data.screenTime, interests: data.interests }])
+          setChildren([
+            {
+              name: data.name || '',
+              age: data.age,
+              screenTime: data.screenTime,
+              interests: data.interests,
+            },
+          ])
         }
       }
     }
+
     loadChildren()
   }, [])
 
   useEffect(() => {
-    const savedPlan = JSON.parse(localStorage.getItem('dailyPlan')) || []
+    loadSchedule()
+  }, [selectedChild])
+
+  function getPlanKey() {
+    return `dailyPlan-${selectedChild}`
+  }
+
+  function loadSchedule() {
+    const savedPlan = JSON.parse(localStorage.getItem(getPlanKey())) || []
+
     const sortedPlan = savedPlan.sort((a, b) => {
       return new Date(`2000/01/01 ${a.time}`) - new Date(`2000/01/01 ${b.time}`)
     })
+
     setSchedule(sortedPlan)
-  }, [selectedChild])
-
-  function handleRemove(time) {
-    const updated = schedule.filter((item) => item.time !== time)
-    localStorage.setItem('dailyPlan', JSON.stringify(updated))
-    setSchedule(updated)
   }
 
-  function handleComplete(time) {
+  function saveSchedule(updatedSchedule) {
+    const sortedPlan = updatedSchedule.sort((a, b) => {
+      return new Date(`2000/01/01 ${a.time}`) - new Date(`2000/01/01 ${b.time}`)
+    })
+
+    localStorage.setItem(getPlanKey(), JSON.stringify(sortedPlan))
+    setSchedule(sortedPlan)
+  }
+
+  function handleRemove(id) {
+    const updated = schedule.filter((item) => item.id !== id)
+    saveSchedule(updated)
+    setErrorMessage('')
+  }
+
+  function handleComplete(id) {
     const updated = schedule.map((item) =>
-      item.time === time ? { ...item, status: 'Completed' } : item
+      item.id === id ? { ...item, status: 'Completed' } : item
     )
-    localStorage.setItem('dailyPlan', JSON.stringify(updated))
-    setSchedule(updated)
+
+    saveSchedule(updated)
   }
 
-  const completedCount = schedule.filter(i => i.status === 'Completed').length
+  function handleReminder(id) {
+    const updated = schedule.map((item) =>
+      item.id === id
+        ? {
+            ...item,
+            reminderSet: true,
+            reminderTime: getReminderTime(item.time),
+          }
+        : item
+    )
+
+    const activity = schedule.find((item) => item.id === id)
+
+    if (activity) {
+      setReminderMessage(
+        `Reminder set for ${activity.title} at ${getReminderTime(activity.time)}.`
+      )
+    }
+
+    saveSchedule(updated)
+  }
+
+  function getReminderTime(time) {
+    const date = new Date(`2000/01/01 ${time}`)
+    date.setMinutes(date.getMinutes() - 10)
+
+    return date.toLocaleTimeString([], {
+      hour: 'numeric',
+      minute: '2-digit',
+    })
+  }
+
+  function handleDragStart(activity) {
+    setDraggedActivity(activity)
+    setErrorMessage('')
+  }
+
+  function handleDragOver(event) {
+    event.preventDefault()
+  }
+
+  function handleDrop(targetTime) {
+    if (!draggedActivity) {
+      return
+    }
+
+    const targetOccupied = schedule.some(
+      (item) => item.time === targetTime && item.id !== draggedActivity.id
+    )
+
+    if (targetOccupied) {
+      setErrorMessage('This time slot is already occupied.')
+      setDraggedActivity(null)
+      return
+    }
+
+    const updated = schedule.map((item) =>
+      item.id === draggedActivity.id ? { ...item, time: targetTime } : item
+    )
+
+    saveSchedule(updated)
+    setDraggedActivity(null)
+    setErrorMessage('')
+  }
+
+  const selectedChildData = children[selectedChild]
+  const screenTimeLimit = Number(selectedChildData?.screenTime || 120)
+  const usedScreenTime = 30
+  const remainingScreenTime = Math.max(screenTimeLimit - usedScreenTime, 0)
+  const screenTimePercent = Math.min((remainingScreenTime / screenTimeLimit) * 100, 100)
+
   const rewardPoints = schedule.reduce((total, item) => {
     if (item.status === 'Completed' && item.points) {
       return total + parseInt(item.points)
     }
+
     return total
   }, 0)
 
@@ -59,82 +162,144 @@ function DailyPlan() {
     <main className="daily-plan-page">
       <section className="daily-plan-container">
         <h1>Daily Plan</h1>
-        <p className="subtitle">Organize activities throughout the day and track completed tasks.</p>
 
-        {children.length > 1 && (
-          <div style={{ marginBottom: '20px' }}>
-            <label style={{ fontWeight: '600', marginRight: '12px' }}>Viewing plan for:</label>
-            <select
-              value={selectedChild}
-              onChange={(e) => setSelectedChild(Number(e.target.value))}
-              style={{ padding: '8px 12px', borderRadius: '8px', border: '1px solid #ddd', fontSize: '1rem' }}
-            >
-              {children.map((child, index) => (
-                <option key={index} value={index}>Child {index + 1} ({child.age} years old)</option>
-              ))}
-            </select>
+        <p className="subtitle">
+          Organize activities throughout the day and track completed tasks.
+        </p>
+
+        {children.length > 0 && (
+          <section className="child-selector-card">
+            <label>
+              Viewing plan for
+              <select
+                value={selectedChild}
+                onChange={(e) => {
+                  setSelectedChild(Number(e.target.value))
+                  setErrorMessage('')
+                  setReminderMessage('')
+                }}
+              >
+                {children.map((child, index) => (
+                  <option key={index} value={index}>
+                    {child.name || `Child ${index + 1}`} {child.age ? `(${child.age} years old)` : ''}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </section>
+        )}
+
+        {reminderMessage && (
+          <div className="reminder-banner">
+            {reminderMessage}
+          </div>
+        )}
+
+        {errorMessage && (
+          <div className="error-banner">
+            {errorMessage}
           </div>
         )}
 
         <section className="summary-grid">
           <div className="summary-card progress-card">
-            <h2>Today's Progress</h2>
-            <h3>{schedule.length} activities planned today</h3>
+            <h2>Remaining Screen Time</h2>
+            <h3>{remainingScreenTime} minutes remaining today</h3>
+
             <div className="progress-bar">
               <div
                 className="progress-fill"
-                style={{ width: `${Math.min(schedule.length * 25, 100)}%` }}
+                style={{ width: `${screenTimePercent}%` }}
               ></div>
             </div>
+
             <p className="reward-text">Reward Points: {rewardPoints} ⭐</p>
           </div>
 
           <div className="summary-card celebration-card">
             <h3>🎉 Great job!</h3>
-            <h3>Keep building healthy habits.</h3>
+            <h3>{schedule.length} activities planned today.</h3>
           </div>
         </section>
 
         <section className="schedule-card">
-          <h2>Today's Schedule</h2>
+          <h2>Today's Timeline</h2>
 
           {schedule.length === 0 && (
-            <p className="empty-plan-message">No activities in your daily plan. Go to Activities to add one.</p>
+            <p className="empty-plan-message">
+              No activities in your daily plan. Go to Activities to add one.
+            </p>
           )}
 
           <div className="timeline">
             {TIME_SLOTS.map((slot) => {
               const activity = schedule.find((item) => item.time === slot)
+
               return (
-                <div className="timeline-row" key={slot}>
+                <div
+                  className="timeline-row"
+                  key={slot}
+                  onDragOver={handleDragOver}
+                  onDrop={() => handleDrop(slot)}
+                >
                   <div className="timeline-time">{slot}</div>
+
                   <div className="timeline-content">
                     {activity ? (
-                      <div className="schedule-activity">
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                      <div
+                        className={`schedule-activity ${
+                          activity.status === 'Completed' ? 'completed-activity' : ''
+                        }`}
+                        draggable
+                        onDragStart={() => handleDragStart(activity)}
+                      >
+                        <div className="activity-row-top">
                           <div>
                             <h3>{activity.title}</h3>
                             <p>{activity.details}</p>
-                          </div>
-                          <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                            <span className={`schedule-status ${activity.status === 'Completed' ? 'completed' : 'planned'}`}>
-                              {activity.status}
-                            </span>
-                            {activity.status !== 'Completed' && (
-                              <button
-                                onClick={() => handleComplete(slot)}
-                                style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#2e8b3c', fontWeight: 'bold', fontSize: '0.9rem' }}
-                              >
-                                Complete
-                              </button>
+
+                            {activity.reminderSet && (
+                              <p className="reminder-note">
+                                Reminder at {activity.reminderTime}
+                              </p>
                             )}
-                            <button
-                              onClick={() => handleRemove(slot)}
-                              style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#e53e3e', fontWeight: 'bold', fontSize: '0.9rem' }}
-                            >
-                              Remove
-                            </button>
                           </div>
+
+                          <span
+                            className={`schedule-status ${
+                              activity.status === 'Completed' ? 'completed' : 'planned'
+                            }`}
+                          >
+                            {activity.status}
+                          </span>
+                        </div>
+
+                        <div className="activity-actions">
+                          {activity.status !== 'Completed' && (
+                            <button
+                              type="button"
+                              className="complete-button"
+                              onClick={() => handleComplete(activity.id)}
+                            >
+                              Complete
+                            </button>
+                          )}
+
+                          <button
+                            type="button"
+                            className="reminder-button"
+                            onClick={() => handleReminder(activity.id)}
+                          >
+                            Reminder
+                          </button>
+
+                          <button
+                            type="button"
+                            className="remove-button"
+                            onClick={() => handleRemove(activity.id)}
+                          >
+                            Remove
+                          </button>
                         </div>
                       </div>
                     ) : (
