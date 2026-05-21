@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
-import { collection, getDocs } from 'firebase/firestore'
-import { db } from '../firebase'
+import { collection, getDocs, doc, getDoc } from 'firebase/firestore'
+import { auth, db } from '../firebase'
 import { seedActivities } from '../utils/seedActivities'
 import './Activities.css'
 
@@ -18,31 +18,66 @@ function Activities() {
   const [loadingActivities, setLoadingActivities] = useState(true)
   const [filtersApplied, setFiltersApplied] = useState(false)
   const activitiesRef = useRef([])
+
+  const [children, setChildren] = useState([])
+  const [selectedChild, setSelectedChild] = useState(0)
+
   const [ageFilter, setAgeFilter] = useState('')
   const [timeFilter, setTimeFilter] = useState('')
   const [typeFilter, setTypeFilter] = useState('')
   const [filteredActivities, setFilteredActivities] = useState([])
-
-  useEffect(() => {
-    async function loadActivities() {
-      await seedActivities()
-      const snapshot = await getDocs(collection(db, 'activities'))
-      const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
-      activitiesRef.current = data
-      setActivities(data)
-      setFilteredActivities([])
-      setLoadingActivities(false)
-    }
-    loadActivities()
-  }, [])
 
   const [selectedActivity, setSelectedActivity] = useState(null)
   const [selectedTime, setSelectedTime] = useState('')
   const [confirmedActivity, setConfirmedActivity] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
 
+  useEffect(() => {
+    async function loadChildren() {
+      const profileDoc = await getDoc(doc(db, 'users', auth.currentUser.uid))
+
+      if (profileDoc.exists()) {
+        const data = profileDoc.data()
+
+        if (data.children && data.children.length > 0) {
+          setChildren(data.children)
+        } else if (data.age) {
+          setChildren([
+            {
+              name: data.name || '',
+              age: data.age,
+              screenTime: data.screenTime,
+              interests: data.interests,
+            },
+          ])
+        }
+      }
+    }
+
+    loadChildren()
+  }, [])
+
+  useEffect(() => {
+    async function loadActivities() {
+      await seedActivities()
+      const snapshot = await getDocs(collection(db, 'activities'))
+      const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+
+      activitiesRef.current = data
+      setActivities(data)
+      setFilteredActivities([])
+      setLoadingActivities(false)
+    }
+
+    loadActivities()
+  }, [])
+
   function getDurationNumber(duration) {
     return parseInt(duration)
+  }
+
+  function getPlanKey() {
+    return `dailyPlan-${selectedChild}`
   }
 
   function handleApplyFilters() {
@@ -101,7 +136,7 @@ function Activities() {
       return
     }
 
-    const currentPlan = JSON.parse(localStorage.getItem('dailyPlan')) || []
+    const currentPlan = JSON.parse(localStorage.getItem(getPlanKey())) || []
     const slotTaken = currentPlan.some((item) => item.time === selectedTime)
 
     if (slotTaken) {
@@ -110,13 +145,18 @@ function Activities() {
     }
 
     const newPlanItem = {
+      id: Date.now(),
       time: selectedTime,
       title: selectedActivity.name,
       details: `${selectedActivity.duration} · ${selectedActivity.type}`,
+      duration: selectedActivity.duration,
+      type: selectedActivity.type,
+      points: selectedActivity.points,
       status: 'Planned',
+      reminderSet: false,
     }
 
-    localStorage.setItem('dailyPlan', JSON.stringify([...currentPlan, newPlanItem]))
+    localStorage.setItem(getPlanKey(), JSON.stringify([...currentPlan, newPlanItem]))
 
     setConfirmedActivity(selectedActivity.name)
     setSelectedActivity(null)
@@ -130,6 +170,26 @@ function Activities() {
         <h1>Activity Suggestion</h1>
         <p>Choose meaningful activities to replace screen time</p>
       </section>
+
+      {children.length > 0 && (
+        <section className="filters-card">
+          <h2>Child Profile</h2>
+
+          <label>
+            Viewing activities for
+            <select
+              value={selectedChild}
+              onChange={(e) => setSelectedChild(Number(e.target.value))}
+            >
+              {children.map((child, index) => (
+                <option key={index} value={index}>
+                  {child.name || `Child ${index + 1}`} {child.age ? `(${child.age} years old)` : ''}
+                </option>
+              ))}
+            </select>
+          </label>
+        </section>
+      )}
 
       <section className="filters-card">
         <h2>Filters</h2>
@@ -170,10 +230,19 @@ function Activities() {
           <button className="primary-button" onClick={handleApplyFilters} disabled={loadingActivities}>
             Apply Filters
           </button>
+
           <button
             onClick={handleResetFilters}
             disabled={loadingActivities}
-            style={{ padding: '10px 18px', backgroundColor: loadingActivities ? '#ccc' : '#888', color: 'white', border: 'none', borderRadius: '8px', cursor: loadingActivities ? 'not-allowed' : 'pointer', fontWeight: '700' }}
+            style={{
+              padding: '10px 18px',
+              backgroundColor: loadingActivities ? '#ccc' : '#888',
+              color: 'white',
+              border: 'none',
+              borderRadius: '8px',
+              cursor: loadingActivities ? 'not-allowed' : 'pointer',
+              fontWeight: '700',
+            }}
           >
             Reset
           </button>
@@ -186,16 +255,10 @@ function Activities() {
 
           <label>
             Choose a time slot
-            <select
-              value={selectedTime}
-              onChange={(e) => setSelectedTime(e.target.value)}
-            >
+            <select value={selectedTime} onChange={(e) => setSelectedTime(e.target.value)}>
               <option value="">Select a time</option>
               {timeSlots
-                .filter(
-                  (slot) =>
-                    slot.availableMinutes >= getDurationNumber(selectedActivity.duration)
-                )
+                .filter((slot) => slot.availableMinutes >= getDurationNumber(selectedActivity.duration))
                 .map((slot) => (
                   <option key={slot.time} value={slot.time}>
                     {slot.time}
@@ -208,9 +271,21 @@ function Activities() {
             <button className="primary-button" onClick={handleConfirm}>
               Confirm Time
             </button>
+
             <button
-              onClick={() => { setSelectedActivity(null); setErrorMessage('') }}
-              style={{ padding: '10px 18px', backgroundColor: '#888', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: '700' }}
+              onClick={() => {
+                setSelectedActivity(null)
+                setErrorMessage('')
+              }}
+              style={{
+                padding: '10px 18px',
+                backgroundColor: '#888',
+                color: 'white',
+                border: 'none',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                fontWeight: '700',
+              }}
             >
               Cancel
             </button>
@@ -222,7 +297,7 @@ function Activities() {
 
       {confirmedActivity && (
         <p className="success-message">
-          {confirmedActivity} was added to the Daily Plan.
+          {confirmedActivity} was added to {children[selectedChild]?.name || `Child ${selectedChild + 1}`}'s Daily Plan.
         </p>
       )}
 
@@ -240,7 +315,7 @@ function Activities() {
         ) : (
           <div className="activity-grid">
             {filteredActivities.map((activity) => (
-              <article className="activity-card" key={activity.name}>
+              <article className="activity-card" key={activity.id || activity.name}>
                 <h3>{activity.name}</h3>
                 <p>{activity.description}</p>
                 <p>Duration: {activity.duration}</p>
@@ -248,10 +323,7 @@ function Activities() {
                 <p>Age: {activity.age}</p>
                 <p className="points">{activity.points}</p>
 
-                <button
-                  className="primary-button"
-                  onClick={() => handleAddToPlan(activity)}
-                >
+                <button className="primary-button" onClick={() => handleAddToPlan(activity)}>
                   Add to Plan
                 </button>
               </article>

@@ -176,3 +176,111 @@
     grid-template-columns: 80px 1fr;
   }
 }
+
+.child-selector-card {
+  background: white;
+  border-radius: 12px;
+  padding: 18px 24px;
+  margin-bottom: 18px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.child-selector-card label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-weight: 700;
+}
+
+.child-selector-card select {
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: white;
+}
+
+.reminder-banner,
+.error-banner {
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  font-weight: 700;
+}
+
+.reminder-banner {
+  background: #fff8e1;
+  color: #8a5a00;
+  border: 1px solid #f3d27a;
+}
+
+.error-banner {
+  background: #ffe8e8;
+  color: #b00020;
+  border: 1px solid #f3b0b0;
+}
+
+.completed-activity {
+  opacity: 0.75;
+  background-color: #eef9f0;
+}
+
+.activity-row-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.activity-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.complete-button,
+.reminder-button,
+.remove-button {
+  border: none;
+  border-radius: 6px;
+  padding: 7px 10px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.complete-button {
+  background: #2e8b3c;
+  color: white;
+}
+
+.reminder-button {
+  background: #f2c94c;
+  color: #333;
+}
+
+.remove-button {
+  background: #e53e3e;
+  color: white;
+}
+
+.reminder-note {
+  margin-top: 6px !important;
+  color: #8a5a00 !important;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.schedule-activity {
+  cursor: grab;
+}
+
+.schedule-activity:active {
+  cursor: grabbing;
+}
+
+@media (max-width: 700px) {
+  .activity-row-top {
+    flex-direction: column;
+  }
+}

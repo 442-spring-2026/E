@@ -3,7 +3,13 @@ import { doc, getDoc, setDoc } from 'firebase/firestore'
 import { auth, db } from '../firebase'
 import './Profile.css'
 
-const emptyChild = () => ({ id: Date.now(), age: '', screenTime: '', interests: '' })
+const emptyChild = () => ({
+  id: Date.now(),
+  name: '',
+  age: '',
+  screenTime: '',
+  interests: '',
+})
 
 function Profile() {
   const [children, setChildren] = useState([emptyChild()])
@@ -14,16 +20,36 @@ function Profile() {
   useEffect(() => {
     async function loadProfile() {
       const profileDoc = await getDoc(doc(db, 'users', auth.currentUser.uid))
+
       if (profileDoc.exists()) {
         const data = profileDoc.data()
+
         if (data.children && data.children.length > 0) {
-          setChildren(data.children.map((c, i) => ({ id: i, ...c })))
+          setChildren(
+            data.children.map((child, index) => ({
+              id: index,
+              name: child.name || '',
+              age: child.age || '',
+              screenTime: child.screenTime || '',
+              interests: child.interests || '',
+            }))
+          )
         } else if (data.age || data.screenTime || data.interests) {
-          setChildren([{ id: 0, age: data.age || '', screenTime: data.screenTime || '', interests: data.interests || '' }])
+          setChildren([
+            {
+              id: 0,
+              name: data.name || '',
+              age: data.age || '',
+              screenTime: data.screenTime || '',
+              interests: data.interests || '',
+            },
+          ])
         }
       }
+
       setLoading(false)
     }
+
     loadProfile()
   }, [])
 
@@ -36,9 +62,11 @@ function Profile() {
   }
 
   function handleChange(id, field, value) {
-    setChildren(children.map((child) =>
-      child.id === id ? { ...child, [field]: value } : child
-    ))
+    setChildren(
+      children.map((child) =>
+        child.id === id ? { ...child, [field]: value } : child
+      )
+    )
   }
 
   async function handleSave() {
@@ -46,15 +74,21 @@ function Profile() {
     setSuccessMessage('')
 
     for (const child of children) {
-      if (!child.age || !child.screenTime || !child.interests.trim()) {
-        setError('Please enter valid information')
+      if (!child.name.trim() || !child.age || !child.screenTime || !child.interests.trim()) {
+        setError('Please enter valid information for each child.')
         return
       }
     }
 
     try {
       const childrenData = children.map(({ id, ...rest }) => rest)
-      await setDoc(doc(db, 'users', auth.currentUser.uid), { children: childrenData }, { merge: true })
+
+      await setDoc(
+        doc(db, 'users', auth.currentUser.uid),
+        { children: childrenData },
+        { merge: true }
+      )
+
       setSuccessMessage('Profile saved successfully.')
     } catch (err) {
       setError('Something went wrong. Please try again.')
@@ -72,7 +106,8 @@ function Profile() {
           {children.map((child, index) => (
             <div className="child-profile-card" key={child.id}>
               <div className="child-profile-header">
-                <h2>Child {index + 1}</h2>
+                <h2>{child.name || `Child ${index + 1}`}</h2>
+
                 {children.length > 1 && (
                   <button
                     type="button"
@@ -85,11 +120,29 @@ function Profile() {
               </div>
 
               <label>
+                Child Name
+                <input
+                  type="text"
+                  placeholder="Enter child name"
+                  value={child.name}
+                  onChange={(e) => handleChange(child.id, 'name', e.target.value)}
+                />
+              </label>
+
+              <label>
                 Child Age
                 <select
                   value={child.age}
                   onChange={(e) => handleChange(child.id, 'age', e.target.value)}
-                  style={{ width: '100%', marginTop: '6px', padding: '12px', border: '1px solid #ced4da', borderRadius: '8px', fontSize: '1rem', backgroundColor: 'white' }}
+                  style={{
+                    width: '100%',
+                    marginTop: '6px',
+                    padding: '12px',
+                    border: '1px solid #ced4da',
+                    borderRadius: '8px',
+                    fontSize: '1rem',
+                    backgroundColor: 'white',
+                  }}
                 >
                   <option value="">Select age range</option>
                   <option value="2-5">2-5 years old</option>
@@ -103,8 +156,18 @@ function Profile() {
                 Screen Time Limit
                 <select
                   value={child.screenTime}
-                  onChange={(e) => handleChange(child.id, 'screenTime', e.target.value)}
-                  style={{ width: '100%', marginTop: '6px', padding: '12px', border: '1px solid #ced4da', borderRadius: '8px', fontSize: '1rem', backgroundColor: 'white' }}
+                  onChange={(e) =>
+                    handleChange(child.id, 'screenTime', e.target.value)
+                  }
+                  style={{
+                    width: '100%',
+                    marginTop: '6px',
+                    padding: '12px',
+                    border: '1px solid #ced4da',
+                    borderRadius: '8px',
+                    fontSize: '1rem',
+                    backgroundColor: 'white',
+                  }}
                 >
                   <option value="">Select limit</option>
                   <option value="30">30 minutes per day</option>
@@ -121,7 +184,9 @@ function Profile() {
                   type="text"
                   placeholder="e.g. Drawing, Sports, Cooking"
                   value={child.interests}
-                  onChange={(e) => handleChange(child.id, 'interests', e.target.value)}
+                  onChange={(e) =>
+                    handleChange(child.id, 'interests', e.target.value)
+                  }
                 />
               </label>
             </div>
@@ -129,9 +194,14 @@ function Profile() {
         </div>
 
         <div className="profile-buttons">
-          <button type="button" className="add-child-button" onClick={handleAddChild}>
+          <button
+            type="button"
+            className="add-child-button"
+            onClick={handleAddChild}
+          >
             Add Child
           </button>
+
           <button type="button" className="save-button" onClick={handleSave}>
             Save
           </button>
