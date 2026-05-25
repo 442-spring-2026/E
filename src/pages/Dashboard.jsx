@@ -151,6 +151,9 @@ function Dashboard() {
 
           <div style={{ marginTop: '20px' }}>
             <h3 style={{ marginBottom: '10px' }}>Add Screen Time Session</h3>
+            <p style={{ color: '#666', fontSize: '0.9rem', marginBottom: '12px' }}>
+              Enter today’s screen time manually to track daily usage.
+            </p>
             <div style={{ display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap' }}>
               <input
                 type="number"
