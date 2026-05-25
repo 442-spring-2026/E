@@ -206,12 +206,16 @@ function Dashboard() {
             <p style={{ fontWeight: 'bold', color: '#888', fontSize: '1rem' }}>No data yet</p>
             <p style={{ color: '#888', fontSize: '0.9rem' }}>Enter today's screen time to see status.</p>
           </div>
-          ) : exceeded ? (
+          ) : totalMinutes >= screenTimeLimit ? (
             <div style={{ textAlign: 'center' }}>
               <p style={{ fontSize: '2rem', marginBottom: '8px' }}>⚠️</p>
-              <p style={{ fontWeight: 'bold', color: '#e53e3e', fontSize: '1rem', marginBottom: '4px' }}>Limit exceeded</p>
+              <p style={{ fontWeight: 'bold', color: '#e53e3e', fontSize: '1rem', marginBottom: '4px' }}>
+                {exceeded ? 'Limit exceeded' : 'Daily limit reached'}
+              </p>
               <p style={{ color: '#e53e3e', fontSize: '0.95rem' }}>
-                {Math.floor((totalMinutes - screenTimeLimit) / 60)}h {(totalMinutes - screenTimeLimit) % 60}m over today's limit
+                {exceeded
+                  ? `${Math.floor((totalMinutes - screenTimeLimit) / 60)}h ${(totalMinutes - screenTimeLimit) % 60}m over today's limit`
+                  : 'You have reached today’s screen time limit.'}
               </p>
             </div>
           ) : (
