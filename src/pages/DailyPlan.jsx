@@ -105,9 +105,10 @@ function DailyPlan() {
     const date = new Date(`2000/01/01 ${time}`)
     date.setMinutes(date.getMinutes() - 10)
 
-    return date.toLocaleTimeString([], {
+    return date.toLocaleTimeString('en-US', {
       hour: 'numeric',
       minute: '2-digit',
+      hour12: true,
     })
   }
 
@@ -136,10 +137,23 @@ function DailyPlan() {
     }
 
     const updated = schedule.map((item) =>
-      item.id === draggedActivity.id ? { ...item, time: targetTime } : item
+      item.id === draggedActivity.id
+        ? {
+            ...item,
+            time: targetTime,
+            reminderTime: item.reminderSet ? getReminderTime(targetTime) : item.reminderTime,
+          }
+        : item
     )
 
     saveSchedule(updated)
+
+    if (draggedActivity.reminderSet) {
+      setReminderMessage(
+        `Reminder updated for ${draggedActivity.title} at ${getReminderTime(targetTime)}.`
+      )
+    }
+
     setDraggedActivity(null)
     setErrorMessage('')
   }
