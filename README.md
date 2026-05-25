@@ -28,3 +28,15 @@ See [Requirements.md](Requirements.md)
 ## Specifications
 
 See [Specifications.md](Specifications.md)
+
+## Quality
+
+### Usability / Accessibility
+The application was designed to work on both desktop and mobile screen sizes. Responsive layouts were used throughout the website, and filter dropdown menus remain fully visible and usable without horizontal scrolling.
+
+### Security
+The application uses Firebase Authentication for user login and account access. Password fields mask user input while typing.
+
+### Performance
+Activity filter results are designed to update quickly after filters are applied, helping users view matching activities without noticeable delay.
+
