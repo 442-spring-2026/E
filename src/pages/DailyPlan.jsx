@@ -12,6 +12,7 @@ function DailyPlan() {
   const [draggedActivity, setDraggedActivity] = useState(null)
   const [errorMessage, setErrorMessage] = useState('')
   const [reminderMessage, setReminderMessage] = useState('')
+  const [rewardPoints, setRewardPoints] = useState(0)
 
   useEffect(() => {
     async function loadChildren() {
@@ -40,10 +41,16 @@ function DailyPlan() {
 
   useEffect(() => {
     loadSchedule()
+    const stored = parseInt(localStorage.getItem(`rewardPoints-${selectedChild}`)) || 0
+    setRewardPoints(stored)
   }, [selectedChild])
 
   function getPlanKey() {
     return `dailyPlan-${selectedChild}`
+  }
+
+  function getRewardKey() {
+    return `rewardPoints-${selectedChild}`
   }
 
   function loadSchedule() {
@@ -72,6 +79,16 @@ function DailyPlan() {
   }
 
   function handleComplete(id) {
+    const target = schedule.find((item) => item.id === id)
+
+    if (target && target.status !== 'Completed' && target.points) {
+      const earned = parseInt(target.points) || 0
+      const current = parseInt(localStorage.getItem(getRewardKey())) || 0
+      const newTotal = current + earned
+      localStorage.setItem(getRewardKey(), newTotal)
+      setRewardPoints(newTotal)
+    }
+
     const updated = schedule.map((item) =>
       item.id === id ? { ...item, status: 'Completed' } : item
     )
@@ -166,14 +183,6 @@ function DailyPlan() {
   const usedScreenTime = storedSessions.reduce((sum, s) => sum + s.minutes, 0)
   const remainingScreenTime = Math.max(screenTimeLimit - usedScreenTime, 0)
   const screenTimePercent = Math.min((remainingScreenTime / screenTimeLimit) * 100, 100)
-
-  const rewardPoints = schedule.reduce((total, item) => {
-    if (item.status === 'Completed' && item.points) {
-      return total + parseInt(item.points)
-    }
-
-    return total
-  }, 0)
 
   return (
     <main className="daily-plan-page">

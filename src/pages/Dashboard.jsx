@@ -17,6 +17,10 @@ function getPlanKey(childIndex) {
   return `dailyPlan-${childIndex}`
 }
 
+function getRewardKey(childIndex) {
+  return `rewardPoints-${childIndex}`
+}
+
 function getLast7Days() {
   const days = []
   for (let i = 6; i >= 0; i--) {
@@ -35,6 +39,7 @@ function Dashboard() {
   const [sessions, setSessions] = useState([])
   const [hoursInput, setHoursInput] = useState('')
   const [minutesInput, setMinutesInput] = useState('')
+  const [rewardPoints, setRewardPoints] = useState(0)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -56,6 +61,8 @@ function Dashboard() {
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem(getDateKey(selectedChild, getToday()))) || []
     setSessions(saved)
+    const stored = parseInt(localStorage.getItem(getRewardKey(selectedChild))) || 0
+    setRewardPoints(stored)
   }, [selectedChild])
 
   const selectedChildData = children[selectedChild]
@@ -64,15 +71,6 @@ function Dashboard() {
   const remainingMinutes = Math.max(screenTimeLimit - totalMinutes, 0)
   const exceeded = totalMinutes > screenTimeLimit
   const hasData = sessions.length > 0
-
-  const rewardPoints = (() => {
-    const plan = JSON.parse(localStorage.getItem(getPlanKey(selectedChild))) || []
-    const activityPoints = plan
-      .filter(item => item.status === 'Completed' && item.points)
-      .reduce((sum, item) => sum + parseInt(item.points), 0)
-    const limitBonus = hasData && !exceeded ? 10 : 0
-    return activityPoints + limitBonus
-  })()
 
   const weeklyData = getLast7Days().map((date) => {
     const daySessions = JSON.parse(localStorage.getItem(getDateKey(selectedChild, date))) || []
@@ -140,7 +138,7 @@ function Dashboard() {
                   className="progress-fill"
                   style={{
                     width: `${Math.min((totalMinutes / screenTimeLimit) * 100, 100)}%`,
-                    backgroundColor: exceeded ? '#e53e3e' : '#4caf50'
+                    backgroundColor: totalMinutes >= screenTimeLimit ? '#e53e3e' : '#4caf50'
                   }}
                 ></div>
               </div>

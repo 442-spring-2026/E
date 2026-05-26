@@ -22,6 +22,23 @@ function App() {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      const prevUid = localStorage.getItem('nestly_uid')
+      const newUid = currentUser?.uid || null
+
+      if (prevUid && newUid !== prevUid) {
+        Object.keys(localStorage).forEach((key) => {
+          if (key.startsWith('screenTime-') || key.startsWith('dailyPlan-') || key.startsWith('rewardPoints-')) {
+            localStorage.removeItem(key)
+          }
+        })
+      }
+
+      if (newUid) {
+        localStorage.setItem('nestly_uid', newUid)
+      } else {
+        localStorage.removeItem('nestly_uid')
+      }
+
       setUser(currentUser)
       setLoading(false)
     })
