@@ -39,6 +39,7 @@ function Dashboard() {
   const [sessions, setSessions] = useState([])
   const [hoursInput, setHoursInput] = useState('')
   const [minutesInput, setMinutesInput] = useState('')
+  const [sessionError, setSessionError] = useState('')
   const [rewardPoints, setRewardPoints] = useState(0)
   const [loading, setLoading] = useState(true)
 
@@ -84,9 +85,23 @@ function Dashboard() {
   function handleAddSession() {
     const h = parseInt(hoursInput) || 0
     const m = parseInt(minutesInput) || 0
-    const totalMins = h * 60 + m
-    if (totalMins <= 0) return
 
+    if (h < 0 || h > 23) {
+      setSessionError('Hours must be between 0 and 23.')
+      return
+    }
+    if (m < 0 || m > 59) {
+      setSessionError('Minutes must be between 0 and 59.')
+      return
+    }
+
+    const totalMins = h * 60 + m
+    if (totalMins <= 0) {
+      setSessionError('Please enter a time greater than 0 minutes.')
+      return
+    }
+
+    setSessionError('')
     const updated = [...sessions, { id: Date.now(), minutes: totalMins }]
     localStorage.setItem(getDateKey(selectedChild, getToday()), JSON.stringify(updated))
     setSessions(updated)
@@ -178,6 +193,9 @@ function Dashboard() {
                 Add Session
               </button>
             </div>
+            {sessionError && (
+              <p style={{ color: '#e53e3e', fontSize: '0.875rem', marginTop: '8px' }}>{sessionError}</p>
+            )}
 
             {sessions.length > 0 && (
               <div style={{ marginTop: '14px' }}>

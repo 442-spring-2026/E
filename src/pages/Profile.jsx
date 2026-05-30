@@ -61,10 +61,15 @@ function Profile() {
     setChildren(children.filter((child) => child.id !== id))
   }
 
+  function sanitizeText(value) {
+    return value.replace(/<[^>]*>/g, '')
+  }
+
   function handleChange(id, field, value) {
+    const sanitized = field === 'name' ? sanitizeText(value) : value
     setChildren(
       children.map((child) =>
-        child.id === id ? { ...child, [field]: value } : child
+        child.id === id ? { ...child, [field]: sanitized } : child
       )
     )
   }
