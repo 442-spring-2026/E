@@ -76,6 +76,19 @@ function Activities() {
     return parseInt(duration)
   }
 
+  function isPastTimeSlot(slotTime) {
+    const now = new Date()
+    const [time, period] = slotTime.split(' ')
+    const [hoursStr, minutesStr] = time.split(':')
+    let hour = parseInt(hoursStr)
+    const minutes = parseInt(minutesStr) || 0
+    if (period === 'PM' && hour !== 12) hour += 12
+    if (period === 'AM' && hour === 12) hour = 0
+    const slotDate = new Date()
+    slotDate.setHours(hour, minutes, 0, 0)
+    return slotDate <= now
+  }
+
   function getPlanKey() {
     return `dailyPlan-${selectedChild}`
   }
@@ -259,7 +272,7 @@ function Activities() {
             <select value={selectedTime} onChange={(e) => setSelectedTime(e.target.value)}>
               <option value="">Select a time</option>
               {timeSlots
-                .filter((slot) => slot.availableMinutes >= getDurationNumber(selectedActivity.duration))
+                .filter((slot) => !isPastTimeSlot(slot.time) && slot.availableMinutes >= getDurationNumber(selectedActivity.duration))
                 .map((slot) => (
                   <option key={slot.time} value={slot.time}>
                     {slot.time}
