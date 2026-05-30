@@ -34,6 +34,10 @@ function Onboarding() {
         setError('* Please complete all required fields')
         return
       }
+      if (!/[a-zA-Z]/.test(child.interests)) {
+        setError('* Interests must include letters, not just numbers')
+        return
+      }
     }
 
     setLoading(true)

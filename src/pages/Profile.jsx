@@ -83,6 +83,10 @@ function Profile() {
         setError('Please enter valid information for each child.')
         return
       }
+      if (!/[a-zA-Z]/.test(child.interests)) {
+        setError('Interests must include letters, not just numbers.')
+        return
+      }
     }
 
     try {
