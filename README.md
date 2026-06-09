@@ -40,3 +40,23 @@ The application uses Firebase Authentication for user login and account access. 
 ### Performance
 Activity filter results are designed to update quickly after filters are applied, helping users view matching activities without noticeable delay.
 
+## Quality Considerations
+
+### Accessibility
+
+- Forms include labels and instructions to guide user input.
+- The interface uses readable font sizes and high-contrast colors.
+- Buttons and navigation elements are clearly labeled for easier interaction.
+  
+### Security
+
+- User authentication is managed through Firebase Authentication.
+- Input validation helps prevent invalid or incomplete data submissions.
+- User-specific data is associated with authenticated accounts.
+   
+### Robustness
+
+- Form validation prevents incomplete submissions.
+- Empty-state messages are shown when no data is available.
+- User data persists across sessions using Firebase Firestore.
+- Daily Plan includes conflict detection to prevent overlapping activities. 
