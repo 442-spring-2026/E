@@ -81,6 +81,7 @@ function Dashboard() {
   })
 
   const hasWeeklyData = weeklyData.some(d => d.hours > 0)
+  const maxWeeklyHours = Math.max(...weeklyData.map(d => d.hours), 1)
 
   function handleAddSession() {
     const h = parseInt(hoursInput) || 0
@@ -257,7 +258,7 @@ function Dashboard() {
               <div className="chart-column" key={item.day}>
                 <div
                   className="chart-bar"
-                  style={{ height: `${Math.max(item.hours * 35, 2)}px` }}
+                  style={{ height: `${item.hours > 0 ? Math.max((item.hours / maxWeeklyHours) * 150, 4) : 0}px` }}
                 ></div>
                 <p>{item.day}</p>
               </div>
